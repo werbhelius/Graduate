@@ -83,8 +83,8 @@ class MainActivity : AppCompatActivity() {
     private fun updateLayoutRatioColor(imageRatio: ImageRatio) {
         when(imageRatio) {
             ImageRatio.ONE_ONE -> {
-                binding.layout11Image.colorFilter = PorterDuffColorFilter(resources.getColor(R.color.color_F15631), PorterDuff.Mode.SRC_IN)
-                binding.layout11Text.setTextColor(resources.getColor(R.color.color_F15631))
+                binding.layout11Image.colorFilter = PorterDuffColorFilter(resources.getColor(R.color.colorAccent), PorterDuff.Mode.SRC_IN)
+                binding.layout11Text.setTextColor(resources.getColor(R.color.colorAccent))
                 binding.layout43Image.colorFilter = PorterDuffColorFilter(resources.getColor(R.color.color_000000), PorterDuff.Mode.SRC_IN)
                 binding.layout43Text.setTextColor(resources.getColor(R.color.color_000000))
                 binding.layout32Image.colorFilter = PorterDuffColorFilter(resources.getColor(R.color.color_000000), PorterDuff.Mode.SRC_IN)
@@ -93,8 +93,8 @@ class MainActivity : AppCompatActivity() {
                 binding.layout169Text.setTextColor(resources.getColor(R.color.color_000000))
             }
             ImageRatio.FOUR_THREE -> {
-                binding.layout43Image.colorFilter = PorterDuffColorFilter(resources.getColor(R.color.color_F15631), PorterDuff.Mode.SRC_IN)
-                binding.layout43Text.setTextColor(resources.getColor(R.color.color_F15631))
+                binding.layout43Image.colorFilter = PorterDuffColorFilter(resources.getColor(R.color.colorAccent), PorterDuff.Mode.SRC_IN)
+                binding.layout43Text.setTextColor(resources.getColor(R.color.colorAccent))
                 binding.layout11Image.colorFilter = PorterDuffColorFilter(resources.getColor(R.color.color_000000), PorterDuff.Mode.SRC_IN)
                 binding.layout11Text.setTextColor(resources.getColor(R.color.color_000000))
                 binding.layout32Image.colorFilter = PorterDuffColorFilter(resources.getColor(R.color.color_000000), PorterDuff.Mode.SRC_IN)
@@ -103,8 +103,8 @@ class MainActivity : AppCompatActivity() {
                 binding.layout169Text.setTextColor(resources.getColor(R.color.color_000000))
             }
             ImageRatio.THREE_TWO -> {
-                binding.layout32Image.colorFilter = PorterDuffColorFilter(resources.getColor(R.color.color_F15631), PorterDuff.Mode.SRC_IN)
-                binding.layout32Text.setTextColor(resources.getColor(R.color.color_F15631))
+                binding.layout32Image.colorFilter = PorterDuffColorFilter(resources.getColor(R.color.colorAccent), PorterDuff.Mode.SRC_IN)
+                binding.layout32Text.setTextColor(resources.getColor(R.color.colorAccent))
                 binding.layout43Image.colorFilter = PorterDuffColorFilter(resources.getColor(R.color.color_000000), PorterDuff.Mode.SRC_IN)
                 binding.layout43Text.setTextColor(resources.getColor(R.color.color_000000))
                 binding.layout11Image.colorFilter = PorterDuffColorFilter(resources.getColor(R.color.color_000000), PorterDuff.Mode.SRC_IN)
@@ -113,8 +113,8 @@ class MainActivity : AppCompatActivity() {
                 binding.layout169Text.setTextColor(resources.getColor(R.color.color_000000))
             }
             ImageRatio.SIXTEEN_NINE -> {
-                binding.layout169Image.colorFilter = PorterDuffColorFilter(resources.getColor(R.color.color_F15631), PorterDuff.Mode.SRC_IN)
-                binding.layout169Text.setTextColor(resources.getColor(R.color.color_F15631))
+                binding.layout169Image.colorFilter = PorterDuffColorFilter(resources.getColor(R.color.colorAccent), PorterDuff.Mode.SRC_IN)
+                binding.layout169Text.setTextColor(resources.getColor(R.color.colorAccent))
                 binding.layout32Image.colorFilter = PorterDuffColorFilter(resources.getColor(R.color.color_000000), PorterDuff.Mode.SRC_IN)
                 binding.layout32Text.setTextColor(resources.getColor(R.color.color_000000))
                 binding.layout43Image.colorFilter = PorterDuffColorFilter(resources.getColor(R.color.color_000000), PorterDuff.Mode.SRC_IN)
