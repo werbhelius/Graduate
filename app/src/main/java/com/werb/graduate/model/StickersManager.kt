@@ -15,7 +15,7 @@ object StickersManager {
     fun getBackgrounds(block:(List<Sticker>) -> Unit) {
         backgroundStickers = mutableListOf(Sticker(isAddImage = true), Sticker(localImageName = "scenery1"))
         AppDatabase.getInstance().asyncAction { database ->
-            val backgrounds = database.userDao().getAll()
+            val backgrounds = database.userDao().getAll().reversed()
             syncAction( {
                 val _backgroundStickers = backgrounds.map { Sticker(localImageUri = Uri.parse(it.imageUri)) }
                 backgroundStickers.addAll(1, _backgroundStickers)

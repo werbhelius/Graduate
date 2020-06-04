@@ -1,19 +1,48 @@
 package com.werb.graduate
 
+import android.graphics.BitmapFactory
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.os.ParcelFileDescriptor
+import android.widget.ImageView
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintSet
+import androidx.core.content.FileProvider
 import androidx.transition.TransitionManager
 import androidx.viewpager2.widget.ViewPager2
+import com.bumptech.glide.Glide
 import com.werb.graduate.databinding.ActivityMainBinding
+import com.werb.graduate.events.AddBackgroundEvent
+import com.werb.graduate.exts.getImage
+import ja.burhanrashid52.photoeditor.PhotoEditor
+import kotlinx.android.synthetic.main.layout_sticker.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
+import java.io.File
+import java.io.FileInputStream
 
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private val editManager = EditManager()
+    private lateinit var mPhotoEditor: PhotoEditor
+    val FILE_PROVIDER_AUTHORITY = "com.werb.graduate.fileprovider"
+
+    override fun onStart() {
+        super.onStart()
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        EventBus.getDefault().unregister(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,6 +86,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupEditManager() {
+        binding.photoEditorView.source.scaleType = ImageView.ScaleType.CENTER_CROP
         editManager.onRatioChange = {
             TransitionManager.beginDelayedTransition(binding.root)
             val set = ConstraintSet()
@@ -78,6 +108,8 @@ class MainActivity : AppCompatActivity() {
         binding.layout169.setOnClickListener {
             editManager.imageRatio = ImageRatio.SIXTEEN_NINE
         }
+
+        mPhotoEditor = PhotoEditor.Builder(this, binding.photoEditorView).build()
     }
 
     private fun updateLayoutRatioColor(imageRatio: ImageRatio) {
@@ -122,6 +154,17 @@ class MainActivity : AppCompatActivity() {
                 binding.layout11Image.colorFilter = PorterDuffColorFilter(resources.getColor(R.color.color_000000), PorterDuff.Mode.SRC_IN)
                 binding.layout11Text.setTextColor(resources.getColor(R.color.color_000000))
             }
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.Q)
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onAddBackgroundEvent(event: AddBackgroundEvent) {
+        event.sticker.localImageUri?.also { uri ->
+            Glide.with(this)
+                .load(uri).into(binding.photoEditorView.source)
+        } ?: run {
+            binding.photoEditorView.source.setImageDrawable(resources.getDrawable(getImage(event.sticker.localImageName)))
         }
     }
 

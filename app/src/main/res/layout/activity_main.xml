@@ -52,36 +52,36 @@
         android:background="@drawable/myrect"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
-        app:layout_constraintBottom_toTopOf="@+id/centerLayout"
+        app:layout_constraintBottom_toTopOf="@+id/layout_1_1"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
-    <LinearLayout
-        android:id="@+id/centerLayout"
-        android:layout_width="40dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_horizontal"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
-        app:layout_constraintStart_toStartOf="parent">
+<!--    <LinearLayout-->
+<!--        android:id="@+id/centerLayout"-->
+<!--        android:layout_width="40dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical"-->
+<!--        android:gravity="center_horizontal"-->
+<!--        android:layout_marginStart="16dp"-->
+<!--        android:layout_marginBottom="16dp"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"-->
+<!--        app:layout_constraintStart_toStartOf="parent">-->
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            app:srcCompat="@drawable/ic_center_focus_weak_24px" />
+<!--        <androidx.appcompat.widget.AppCompatImageView-->
+<!--            android:layout_width="24dp"-->
+<!--            android:layout_height="24dp"-->
+<!--            app:srcCompat="@drawable/ic_center_focus_weak_24px" />-->
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="center"
-            android:textColor="@color/color_000000"
-            android:textSize="12dp"/>
+<!--        <androidx.appcompat.widget.AppCompatTextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:gravity="center"-->
+<!--            android:text="center"-->
+<!--            android:textColor="@color/color_000000"-->
+<!--            android:textSize="12dp"/>-->
 
-    </LinearLayout>
+<!--    </LinearLayout>-->
 
     <LinearLayout
         android:id="@+id/layout_1_1"
@@ -92,7 +92,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
-        app:layout_constraintStart_toEndOf="@id/centerLayout">
+        app:layout_constraintStart_toStartOf="parent">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/layout_1_1_image"

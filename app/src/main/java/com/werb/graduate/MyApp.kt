@@ -14,6 +14,7 @@ class MyApp: Application() {
 
     companion object {
         lateinit var instance: MyApp
+        val AUTHORITY = "com.werb.graduate.fileprovider"
     }
 
 }
