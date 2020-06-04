@@ -54,7 +54,9 @@ class BackgroundFragment: Fragment() {
             attachTo(binding.list)
         }
 
-        adapter.loadData(StickersManager.backgroundStickers)
+        StickersManager.getBackgrounds { backgrounds ->
+            adapter.loadData(backgrounds)
+        }
     }
 
     private val onclick = object : MoreClickListener() {
@@ -86,10 +88,12 @@ class BackgroundFragment: Fragment() {
                 PICK_REQUEST -> try {
                     val selectedPhotoUri = data!!.data
                     selectedPhotoUri?.also {
-                        println(it)
-                        StickersManager.addBackground(it)
-                        adapter.removeAllData()
-                        adapter.loadData(StickersManager.backgroundStickers)
+                        StickersManager.addBackground(it) {
+                            StickersManager.getBackgrounds { backgrounds ->
+                                adapter.removeAllData()
+                                adapter.loadData(backgrounds)
+                            }
+                        }
                     }
                 } catch (e: IOException) {
                     e.printStackTrace()
