@@ -1,7 +1,10 @@
 package com.werb.graduate.holder
 
 import android.view.View
+import android.widget.ImageView
+import com.bumptech.glide.Glide
 import com.werb.graduate.R
+import com.werb.graduate.exts.getImage
 import com.werb.graduate.model.Sticker
 import com.werb.library.MoreViewHolder
 import com.werb.library.link.LayoutID
@@ -16,11 +19,22 @@ class StickerHolder(values: MutableMap<String, Any>, containerView: View) :
 
     override fun bindData(data: Sticker, payloads: List<Any>) {
         if (data.isAddImage) {
-            image.setImageResource(R.drawable.ic_add_24px)
-            image.background = null
+            displayImage.setImageResource(R.drawable.ic_add_24px)
+            displayImage.background = null
+            displayImage.scaleType = ImageView.ScaleType.CENTER_INSIDE
         } else {
-            
+            displayImage.scaleType = ImageView.ScaleType.CENTER_CROP
+            data.localImageUri?.also {
+                Glide.with(containerView.context)
+                    .load(it).into(displayImage)
+            } ?: kotlin.run {
+                Glide.with(containerView.context)
+                    .load(containerView.context.getImage(data.localImageName)).into(displayImage)
+            }
         }
 
+        //click
+        displayImage.tag = data
+        addOnClickListener(displayImage)
     }
 }
