@@ -15,6 +15,8 @@ import androidx.core.content.FileProvider
 import androidx.transition.TransitionManager
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions.withCrossFade
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.werb.graduate.databinding.ActivityMainBinding
 import com.werb.graduate.events.AddBackgroundEvent
 import com.werb.graduate.exts.getImage
@@ -162,7 +164,9 @@ class MainActivity : AppCompatActivity() {
     fun onAddBackgroundEvent(event: AddBackgroundEvent) {
         event.sticker.localImageUri?.also { uri ->
             Glide.with(this)
-                .load(uri).into(binding.photoEditorView.source)
+                .load(uri)
+                .transform(CenterCrop())
+                .into(binding.photoEditorView.source)
         } ?: run {
             binding.photoEditorView.source.setImageDrawable(resources.getDrawable(getImage(event.sticker.localImageName)))
         }

@@ -5,6 +5,7 @@ import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Matrix
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -12,6 +13,7 @@ import android.provider.OpenableColumns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,6 +22,7 @@ import com.tbruyelle.rxpermissions2.RxPermissions
 import com.werb.graduate.databinding.FragmentBackgroundBinding
 import com.werb.graduate.events.AddBackgroundEvent
 import com.werb.graduate.exts.getFileName
+import com.werb.graduate.exts.rotateImageIfRequired
 import com.werb.graduate.exts.saveBitmap
 import com.werb.graduate.holder.StickerHolder
 import com.werb.graduate.model.Sticker

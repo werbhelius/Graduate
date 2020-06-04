@@ -2,12 +2,14 @@ package com.werb.graduate.exts
 
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Matrix
+import android.net.Uri
 import android.os.Handler
 import android.os.Looper
-import java.io.BufferedOutputStream
-import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
+import androidx.exifinterface.media.ExifInterface
+import java.io.*
+
 
 /**
  * Created by wanbo on 2020/6/4.
@@ -35,4 +37,26 @@ fun saveBitmap(bitmap: Bitmap, path: String, complete: () -> Unit = {}) {
             complete.invoke()
         }
     }
+}
+
+@Throws(IOException::class)
+fun rotateImageIfRequired(img: Bitmap, path: String): Bitmap? {
+    val ei = ExifInterface(path)
+    val orientation: Int =
+        ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)
+    return when (orientation) {
+        ExifInterface.ORIENTATION_ROTATE_90 -> rotateImage(img, 90)
+        ExifInterface.ORIENTATION_ROTATE_180 -> rotateImage(img, 180)
+        ExifInterface.ORIENTATION_ROTATE_270 -> rotateImage(img, 270)
+        else -> null
+    }
+}
+
+fun rotateImage(img: Bitmap, degree: Int): Bitmap? {
+    val matrix = Matrix()
+    matrix.postRotate(degree.toFloat())
+    val rotatedImg =
+        Bitmap.createBitmap(img, 0, 0, img.width, img.height, matrix, true)
+    img.recycle()
+    return rotatedImg
 }
