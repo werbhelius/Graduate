@@ -1,12 +1,13 @@
 package com.werb.graduate.exts
 
 import android.content.Context
+import android.database.Cursor
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.net.Uri
 import android.os.Handler
 import android.os.Looper
+import android.provider.MediaStore
 import androidx.exifinterface.media.ExifInterface
 import java.io.*
 
@@ -40,15 +41,15 @@ fun saveBitmap(bitmap: Bitmap, path: String, complete: () -> Unit = {}) {
 }
 
 @Throws(IOException::class)
-fun rotateImageIfRequired(img: Bitmap, path: String): Bitmap? {
-    val ei = ExifInterface(path)
+fun rotateImageIfRequired(img: Bitmap, inputStream: InputStream): Bitmap? {
+    val ei = ExifInterface(inputStream)
     val orientation: Int =
         ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)
     return when (orientation) {
         ExifInterface.ORIENTATION_ROTATE_90 -> rotateImage(img, 90)
         ExifInterface.ORIENTATION_ROTATE_180 -> rotateImage(img, 180)
         ExifInterface.ORIENTATION_ROTATE_270 -> rotateImage(img, 270)
-        else -> null
+        else -> img
     }
 }
 
