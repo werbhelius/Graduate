@@ -5,7 +5,7 @@ package com.werb.graduate
  */
 class EditManager {
 
-    var imageRatio = ImageRatio.ONE_ONE
+    var imageRatio = ImageRatio.ORIGINAL
     set(value) {
         field = value
         onRatioChange?.invoke(field)
@@ -20,6 +20,7 @@ enum class ImageRatio(val str: String) {
     ONE_ONE("1:1"),
     FOUR_THREE("4:3"),
     THREE_TWO("3:2"),
-    SIXTEEN_NINE("16:9")
+    SIXTEEN_NINE("16:9"),
+    ORIGINAL("")
 
 }
