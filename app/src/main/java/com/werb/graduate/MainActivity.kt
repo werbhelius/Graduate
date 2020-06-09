@@ -5,6 +5,8 @@ import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.os.Build
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
 import android.widget.ImageView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -13,9 +15,12 @@ import androidx.transition.TransitionManager
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.google.android.material.tabs.TabLayoutMediator
 import com.werb.graduate.databinding.ActivityMainBinding
+import com.werb.graduate.databinding.ViewTabBinding
 import com.werb.graduate.events.AddBackgroundEvent
 import com.werb.graduate.exts.getImage
+import com.werb.graduate.model.StickersManager
 import ja.burhanrashid52.photoeditor.PhotoEditor
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -27,7 +32,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val editManager = EditManager()
     private lateinit var mPhotoEditor: PhotoEditor
-    val FILE_PROVIDER_AUTHORITY = "com.werb.graduate.fileprovider"
 
     override fun onStart() {
         super.onStart()
@@ -54,30 +58,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupTab() {
-        binding.backgroundBtn.setOnClickListener {
-            binding.viewPager.setCurrentItem(0, true)
-        }
-        binding.charactersBtn.setOnClickListener {
-            binding.viewPager.setCurrentItem(1, true)
-        }
+        binding.tabLayout.setSelectedTabIndicatorHeight(0)
+        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
+            tab.text = StickersManager.tabText[position]
+        }.attach()
     }
 
     private fun setupViewPager() {
         binding.viewPager.adapter = MainPagerAdapter(this)
-        binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                when(position) {
-                    0 -> {
-                        binding.backgroundBtn.alpha = 1f
-                        binding.charactersBtn.alpha = 0.4f
-                    }
-                    1 -> {
-                        binding.charactersBtn.alpha = 1f
-                        binding.backgroundBtn.alpha = 0.4f
-                    }
-                }
-            }
-        })
     }
 
     private fun setupEditManager() {

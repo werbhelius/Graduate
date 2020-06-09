@@ -89,8 +89,7 @@
         android:orientation="vertical"
         android:gravity="center_horizontal"
         android:layout_marginStart="16dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
+        app:layout_constraintBottom_toBottomOf="@+id/layout_16_9"
         app:layout_constraintStart_toStartOf="parent">
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -117,8 +116,7 @@
         android:orientation="vertical"
         android:gravity="center_horizontal"
         android:layout_marginStart="16dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
+        app:layout_constraintBottom_toBottomOf="@+id/layout_16_9"
         app:layout_constraintStart_toEndOf="@id/layout_1_1">
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -145,8 +143,7 @@
         android:orientation="vertical"
         android:gravity="center_horizontal"
         android:layout_marginStart="16dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
+        app:layout_constraintBottom_toBottomOf="@+id/layout_16_9"
         app:layout_constraintStart_toEndOf="@id/layout_4_3">
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -174,7 +171,7 @@
         android:gravity="center_horizontal"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
+        app:layout_constraintBottom_toTopOf="@+id/tabLayout"
         app:layout_constraintStart_toEndOf="@id/layout_3_2">
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -194,45 +191,54 @@
 
     </LinearLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout2"
+<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--        android:id="@+id/constraintLayout2"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="55dp"-->
+<!--        android:background="@color/color_FFFFFF"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/viewPager"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent">-->
+
+<!--        <androidx.appcompat.widget.AppCompatTextView-->
+<!--            android:id="@+id/backgroundBtn"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_marginStart="82dp"-->
+<!--            android:fontFamily="@font/ariblk"-->
+<!--            android:gravity="center"-->
+<!--            android:text="Background"-->
+<!--            android:textColor="@color/color_000000"-->
+<!--            android:textSize="14dp"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--        <androidx.appcompat.widget.AppCompatTextView-->
+<!--            android:id="@+id/charactersBtn"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_marginStart="20dp"-->
+<!--            android:alpha="0.4"-->
+<!--            android:fontFamily="@font/ariblk"-->
+<!--            android:gravity="center"-->
+<!--            android:text="Characters"-->
+<!--            android:textColor="@color/color_000000"-->
+<!--            android:textSize="14dp"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintStart_toEndOf="@id/backgroundBtn"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:background="@color/color_FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/viewPager"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/backgroundBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="82dp"
-            android:fontFamily="@font/ariblk"
-            android:gravity="center"
-            android:text="Background"
-            android:textColor="@color/color_000000"
-            android:textSize="14dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/charactersBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginStart="20dp"
-            android:alpha="0.4"
-            android:fontFamily="@font/ariblk"
-            android:gravity="center"
-            android:text="Characters"
-            android:textColor="@color/color_000000"
-            android:textSize="14dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/backgroundBtn"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"

@@ -7,4 +7,5 @@
     <color name="color_000000">#000000</color>
     <color name="color_D7D8DA">#D7D8DA</color>
     <color name="color_F15631">#F15631</color>
+    <color name="color_clear">#00000000</color>
 </resources>

@@ -23,7 +23,7 @@ class StickerHolder(values: MutableMap<String, Any>, containerView: View) :
             displayImage.background = null
             displayImage.scaleType = ImageView.ScaleType.CENTER_INSIDE
         } else {
-            displayImage.scaleType = ImageView.ScaleType.CENTER_CROP
+            displayImage.scaleType = ImageView.ScaleType.CENTER_INSIDE
             data.localImageUri?.also {
                 Glide.with(containerView.context)
                     .load(it).into(displayImage)
