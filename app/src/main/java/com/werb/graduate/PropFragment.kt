@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.werb.graduate.databinding.FragmentDecorationBinding
+import com.werb.graduate.databinding.FragmentPropBinding
 import com.werb.graduate.holder.StickerHolder
 import com.werb.graduate.model.Sticker
 import com.werb.graduate.model.StickersManager
@@ -17,9 +17,9 @@ import com.werb.library.action.MoreClickListener
 /**
  * Created by wanbo on 2020/6/9.
  */
-class DecorationFragment: Fragment() {
+class PropFragment: Fragment() {
 
-    private var _binding: FragmentDecorationBinding? = null
+    private var _binding: FragmentPropBinding? = null
     private val binding get() = _binding!!
     private val adapter = MoreAdapter()
 
@@ -28,7 +28,7 @@ class DecorationFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentDecorationBinding.inflate(inflater, container, false)
+        _binding = FragmentPropBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -39,14 +39,14 @@ class DecorationFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.listDecoration.setHasFixedSize(true)
-        binding.listDecoration.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+        binding.listProp.setHasFixedSize(true)
+        binding.listProp.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
         adapter.apply {
             register(StickerHolder::class.java, clickListener = onclick)
-            attachTo(binding.listDecoration)
+            attachTo(binding.listProp)
         }
 
-        adapter.loadData(StickersManager.decorationsStickers)
+        adapter.loadData(StickersManager.propsStickers)
     }
 
     private val onclick = object : MoreClickListener() {

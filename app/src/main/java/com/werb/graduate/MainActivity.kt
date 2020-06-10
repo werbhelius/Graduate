@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
     private fun setupTab() {
         binding.tabLayout.setSelectedTabIndicatorHeight(0)
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
-            tab.text = StickersManager.tabText[position]
+            tab.text = StickersManager.mainTabText[position]
         }.attach()
     }
 

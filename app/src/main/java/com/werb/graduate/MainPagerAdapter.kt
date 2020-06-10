@@ -23,7 +23,7 @@ class MainPagerAdapter(fragmentActivity: FragmentActivity) :
                 CharactersFragment()
             }
             2 -> {
-                DecorationFragment()
+                PropFragment()
             }
             else -> Fragment()
         }
