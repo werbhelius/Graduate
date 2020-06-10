@@ -12,6 +12,7 @@ object StickersManager {
     var mainTabText = listOf("背景", "人物", "道具")
 
     private var backgroundStickers = mutableListOf<Sticker>()
+    private var peopleStickers = mutableListOf<Sticker>()
 
     var propsStickers = listOf(
         Sticker(localImageName = "prop1"),
@@ -53,7 +54,9 @@ object StickersManager {
             val backgrounds = database.userDao().getAll().reversed()
             syncAction( {
                 val _backgroundStickers = backgrounds.map { Sticker(localImageUri = Uri.parse(it.imageUri)) }
-                backgroundStickers.addAll(1, _backgroundStickers)
+                if (_backgroundStickers.isNotEmpty()) {
+                    backgroundStickers.addAll(1, _backgroundStickers)
+                }
                 block.invoke(backgroundStickers)
             })
         }
@@ -63,6 +66,29 @@ object StickersManager {
         backgroundStickers.add(1, Sticker(localImageUri = uri))
         AppDatabase.getInstance().asyncAction { database ->
             database.userDao().insert(Background(imageUri = uri.toString()))
+            success()
+        }
+    }
+
+    fun getPeoples(block:(List<Sticker>) -> Unit) {
+        peopleStickers = mutableListOf(Sticker(isAddImage = true),
+            Sticker(localImageName = "people1"))
+        AppDatabase.getInstance().asyncAction { database ->
+            val peoples = database.peopleDao().getAll().reversed()
+            syncAction( {
+                val _peoplesStickers = peoples.map { Sticker(localImageUri = Uri.parse(it.imageUri)) }
+                if (_peoplesStickers.isNotEmpty()) {
+                    peopleStickers.addAll(1, _peoplesStickers)
+                }
+                block.invoke(peopleStickers)
+            })
+        }
+    }
+
+    fun addPeople(uri: Uri, success: () -> Unit) {
+        peopleStickers.add(1, Sticker(localImageUri = uri))
+        AppDatabase.getInstance().asyncAction { database ->
+            database.peopleDao().insert(People(imageUri = uri.toString()))
             success()
         }
     }
