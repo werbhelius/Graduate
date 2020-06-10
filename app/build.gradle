@@ -36,6 +36,38 @@ android {
     androidExtensions {
         experimental = true
     }
+
+    sourceSets {
+        main {
+            res.srcDirs =
+                [
+                    'src/main/res/drawable/博士/军',
+                    'src/main/res/drawable/博士/农',
+                    'src/main/res/drawable/博士/医',
+                    'src/main/res/drawable/博士/工',
+                    'src/main/res/drawable/博士/文',
+                    'src/main/res/drawable/博士/理',
+                    'src/main/res/drawable/学士/军',
+                    'src/main/res/drawable/学士/农',
+                    'src/main/res/drawable/学士/医',
+                    'src/main/res/drawable/学士/工',
+                    'src/main/res/drawable/学士/文',
+                    'src/main/res/drawable/学士/理',
+                    'src/main/res/drawable/硕士/军',
+                    'src/main/res/drawable/硕士/农',
+                    'src/main/res/drawable/硕士/医',
+                    'src/main/res/drawable/硕士/工',
+                    'src/main/res/drawable/硕士/文',
+                    'src/main/res/drawable/硕士/理',
+                    'src/main/res/drawable/博士',
+                    'src/main/res/drawable/学士',
+                    'src/main/res/drawable/硕士',
+                    'src/main/res/drawable',
+                    'src/main/res'
+                ]
+        }
+    }
+
 }
 
 dependencies {

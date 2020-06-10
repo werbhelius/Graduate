@@ -10,19 +10,8 @@ import com.werb.graduate.exts.syncAction
 object StickersManager {
 
     var mainTabText = listOf("背景", "人物", "道具")
-    private var backgroundStickers = mutableListOf<Sticker>()
-    private var charactersStickers = mutableListOf<Sticker>()
 
-    var decorationsStickers = listOf(
-        Sticker(localImageName = "decoration1"),
-        Sticker(localImageName = "decoration2"),
-        Sticker(localImageName = "decoration3"),
-        Sticker(localImageName = "decoration4"),
-        Sticker(localImageName = "decoration5"),
-        Sticker(localImageName = "decoration6"),
-        Sticker(localImageName = "decoration7"),
-        Sticker(localImageName = "decoration8"),
-        Sticker(localImageName = "decoration9"))
+    private var backgroundStickers = mutableListOf<Sticker>()
 
     var propsStickers = listOf(
         Sticker(localImageName = "prop1"),
@@ -35,6 +24,24 @@ object StickersManager {
         Sticker(localImageName = "prop8"),
         Sticker(localImageName = "prop9"),
         Sticker(localImageName = "prop10"))
+
+    var boshiHatStickers = listOf(
+        Sticker(localImageName = "boshi_hat1"),
+        Sticker(localImageName = "boshi_hat2"),
+        Sticker(localImageName = "boshi_hat3")
+    )
+
+    var shuoshiHatStickers = listOf(
+        Sticker(localImageName = "shuoshi_hat1"),
+        Sticker(localImageName = "shuoshi_hat2"),
+        Sticker(localImageName = "shuoshi_hat3")
+    )
+
+    var xueshiHatStickers = listOf(
+        Sticker(localImageName = "xueshi_hat1"),
+        Sticker(localImageName = "xueshi_hat2"),
+        Sticker(localImageName = "xueshi_hat3")
+    )
 
     fun getBackgrounds(block:(List<Sticker>) -> Unit) {
         backgroundStickers = mutableListOf(Sticker(isAddImage = true),
