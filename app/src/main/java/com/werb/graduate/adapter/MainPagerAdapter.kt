@@ -1,4 +1,4 @@
-package com.werb.graduate
+package com.werb.graduate.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity

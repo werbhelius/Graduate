@@ -10,6 +10,7 @@ import com.werb.graduate.exts.syncAction
 object StickersManager {
 
     var mainTabText = listOf("背景", "人物", "道具")
+    var addPeopleTabText = listOf("头像", "服饰", "装饰")
 
     private var backgroundStickers = mutableListOf<Sticker>()
     private var peopleStickers = mutableListOf<Sticker>()

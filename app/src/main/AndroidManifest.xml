@@ -22,6 +22,8 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".ui.AddPeopleActivity"/>
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.werb.graduate.fileprovider"

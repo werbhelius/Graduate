@@ -14,7 +14,7 @@ import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayoutMediator
 import com.werb.graduate.EditManager
 import com.werb.graduate.ImageRatio
-import com.werb.graduate.MainPagerAdapter
+import com.werb.graduate.adapter.MainPagerAdapter
 import com.werb.graduate.R
 import com.werb.graduate.databinding.ActivityMainBinding
 import com.werb.graduate.events.AddBackgroundEvent
@@ -64,7 +64,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupViewPager() {
-        binding.viewPager.adapter = MainPagerAdapter(this)
+        binding.viewPager.adapter =
+            MainPagerAdapter(this)
     }
 
     private fun setupEditManager() {
