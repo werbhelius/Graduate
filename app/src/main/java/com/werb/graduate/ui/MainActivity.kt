@@ -1,23 +1,22 @@
-package com.werb.graduate
+package com.werb.graduate.ui
 
 import android.graphics.BitmapFactory
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.os.Build
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
 import android.widget.ImageView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.transition.TransitionManager
-import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.google.android.material.tabs.TabLayoutMediator
+import com.werb.graduate.EditManager
+import com.werb.graduate.ImageRatio
+import com.werb.graduate.MainPagerAdapter
+import com.werb.graduate.R
 import com.werb.graduate.databinding.ActivityMainBinding
-import com.werb.graduate.databinding.ViewTabBinding
 import com.werb.graduate.events.AddBackgroundEvent
 import com.werb.graduate.exts.getImage
 import com.werb.graduate.model.StickersManager
@@ -99,56 +98,96 @@ class MainActivity : AppCompatActivity() {
         when(imageRatio) {
             ImageRatio.ONE_ONE -> {
                 binding.photoEditorView.source.scaleType = ImageView.ScaleType.CENTER_CROP
-                binding.layout11Image.colorFilter = PorterDuffColorFilter(resources.getColor(R.color.colorAccent), PorterDuff.Mode.SRC_IN)
+                binding.layout11Image.colorFilter = PorterDuffColorFilter(resources.getColor(
+                    R.color.colorAccent
+                ), PorterDuff.Mode.SRC_IN)
                 binding.layout11Text.setTextColor(resources.getColor(R.color.colorAccent))
-                binding.layout43Image.colorFilter = PorterDuffColorFilter(resources.getColor(R.color.color_000000), PorterDuff.Mode.SRC_IN)
+                binding.layout43Image.colorFilter = PorterDuffColorFilter(resources.getColor(
+                    R.color.color_000000
+                ), PorterDuff.Mode.SRC_IN)
                 binding.layout43Text.setTextColor(resources.getColor(R.color.color_000000))
-                binding.layout32Image.colorFilter = PorterDuffColorFilter(resources.getColor(R.color.color_000000), PorterDuff.Mode.SRC_IN)
+                binding.layout32Image.colorFilter = PorterDuffColorFilter(resources.getColor(
+                    R.color.color_000000
+                ), PorterDuff.Mode.SRC_IN)
                 binding.layout32Text.setTextColor(resources.getColor(R.color.color_000000))
-                binding.layout169Image.colorFilter = PorterDuffColorFilter(resources.getColor(R.color.color_000000), PorterDuff.Mode.SRC_IN)
+                binding.layout169Image.colorFilter = PorterDuffColorFilter(resources.getColor(
+                    R.color.color_000000
+                ), PorterDuff.Mode.SRC_IN)
                 binding.layout169Text.setTextColor(resources.getColor(R.color.color_000000))
             }
             ImageRatio.FOUR_THREE -> {
                 binding.photoEditorView.source.scaleType = ImageView.ScaleType.CENTER_CROP
-                binding.layout43Image.colorFilter = PorterDuffColorFilter(resources.getColor(R.color.colorAccent), PorterDuff.Mode.SRC_IN)
+                binding.layout43Image.colorFilter = PorterDuffColorFilter(resources.getColor(
+                    R.color.colorAccent
+                ), PorterDuff.Mode.SRC_IN)
                 binding.layout43Text.setTextColor(resources.getColor(R.color.colorAccent))
-                binding.layout11Image.colorFilter = PorterDuffColorFilter(resources.getColor(R.color.color_000000), PorterDuff.Mode.SRC_IN)
+                binding.layout11Image.colorFilter = PorterDuffColorFilter(resources.getColor(
+                    R.color.color_000000
+                ), PorterDuff.Mode.SRC_IN)
                 binding.layout11Text.setTextColor(resources.getColor(R.color.color_000000))
-                binding.layout32Image.colorFilter = PorterDuffColorFilter(resources.getColor(R.color.color_000000), PorterDuff.Mode.SRC_IN)
+                binding.layout32Image.colorFilter = PorterDuffColorFilter(resources.getColor(
+                    R.color.color_000000
+                ), PorterDuff.Mode.SRC_IN)
                 binding.layout32Text.setTextColor(resources.getColor(R.color.color_000000))
-                binding.layout169Image.colorFilter = PorterDuffColorFilter(resources.getColor(R.color.color_000000), PorterDuff.Mode.SRC_IN)
+                binding.layout169Image.colorFilter = PorterDuffColorFilter(resources.getColor(
+                    R.color.color_000000
+                ), PorterDuff.Mode.SRC_IN)
                 binding.layout169Text.setTextColor(resources.getColor(R.color.color_000000))
             }
             ImageRatio.THREE_TWO -> {
                 binding.photoEditorView.source.scaleType = ImageView.ScaleType.CENTER_CROP
-                binding.layout32Image.colorFilter = PorterDuffColorFilter(resources.getColor(R.color.colorAccent), PorterDuff.Mode.SRC_IN)
+                binding.layout32Image.colorFilter = PorterDuffColorFilter(resources.getColor(
+                    R.color.colorAccent
+                ), PorterDuff.Mode.SRC_IN)
                 binding.layout32Text.setTextColor(resources.getColor(R.color.colorAccent))
-                binding.layout43Image.colorFilter = PorterDuffColorFilter(resources.getColor(R.color.color_000000), PorterDuff.Mode.SRC_IN)
+                binding.layout43Image.colorFilter = PorterDuffColorFilter(resources.getColor(
+                    R.color.color_000000
+                ), PorterDuff.Mode.SRC_IN)
                 binding.layout43Text.setTextColor(resources.getColor(R.color.color_000000))
-                binding.layout11Image.colorFilter = PorterDuffColorFilter(resources.getColor(R.color.color_000000), PorterDuff.Mode.SRC_IN)
+                binding.layout11Image.colorFilter = PorterDuffColorFilter(resources.getColor(
+                    R.color.color_000000
+                ), PorterDuff.Mode.SRC_IN)
                 binding.layout11Text.setTextColor(resources.getColor(R.color.color_000000))
-                binding.layout169Image.colorFilter = PorterDuffColorFilter(resources.getColor(R.color.color_000000), PorterDuff.Mode.SRC_IN)
+                binding.layout169Image.colorFilter = PorterDuffColorFilter(resources.getColor(
+                    R.color.color_000000
+                ), PorterDuff.Mode.SRC_IN)
                 binding.layout169Text.setTextColor(resources.getColor(R.color.color_000000))
             }
             ImageRatio.SIXTEEN_NINE -> {
                 binding.photoEditorView.source.scaleType = ImageView.ScaleType.CENTER_CROP
-                binding.layout169Image.colorFilter = PorterDuffColorFilter(resources.getColor(R.color.colorAccent), PorterDuff.Mode.SRC_IN)
+                binding.layout169Image.colorFilter = PorterDuffColorFilter(resources.getColor(
+                    R.color.colorAccent
+                ), PorterDuff.Mode.SRC_IN)
                 binding.layout169Text.setTextColor(resources.getColor(R.color.colorAccent))
-                binding.layout32Image.colorFilter = PorterDuffColorFilter(resources.getColor(R.color.color_000000), PorterDuff.Mode.SRC_IN)
+                binding.layout32Image.colorFilter = PorterDuffColorFilter(resources.getColor(
+                    R.color.color_000000
+                ), PorterDuff.Mode.SRC_IN)
                 binding.layout32Text.setTextColor(resources.getColor(R.color.color_000000))
-                binding.layout43Image.colorFilter = PorterDuffColorFilter(resources.getColor(R.color.color_000000), PorterDuff.Mode.SRC_IN)
+                binding.layout43Image.colorFilter = PorterDuffColorFilter(resources.getColor(
+                    R.color.color_000000
+                ), PorterDuff.Mode.SRC_IN)
                 binding.layout43Text.setTextColor(resources.getColor(R.color.color_000000))
-                binding.layout11Image.colorFilter = PorterDuffColorFilter(resources.getColor(R.color.color_000000), PorterDuff.Mode.SRC_IN)
+                binding.layout11Image.colorFilter = PorterDuffColorFilter(resources.getColor(
+                    R.color.color_000000
+                ), PorterDuff.Mode.SRC_IN)
                 binding.layout11Text.setTextColor(resources.getColor(R.color.color_000000))
             }
             ImageRatio.ORIGINAL -> {
-                binding.layout169Image.colorFilter = PorterDuffColorFilter(resources.getColor(R.color.color_000000), PorterDuff.Mode.SRC_IN)
+                binding.layout169Image.colorFilter = PorterDuffColorFilter(resources.getColor(
+                    R.color.color_000000
+                ), PorterDuff.Mode.SRC_IN)
                 binding.layout169Text.setTextColor(resources.getColor(R.color.color_000000))
-                binding.layout32Image.colorFilter = PorterDuffColorFilter(resources.getColor(R.color.color_000000), PorterDuff.Mode.SRC_IN)
+                binding.layout32Image.colorFilter = PorterDuffColorFilter(resources.getColor(
+                    R.color.color_000000
+                ), PorterDuff.Mode.SRC_IN)
                 binding.layout32Text.setTextColor(resources.getColor(R.color.color_000000))
-                binding.layout43Image.colorFilter = PorterDuffColorFilter(resources.getColor(R.color.color_000000), PorterDuff.Mode.SRC_IN)
+                binding.layout43Image.colorFilter = PorterDuffColorFilter(resources.getColor(
+                    R.color.color_000000
+                ), PorterDuff.Mode.SRC_IN)
                 binding.layout43Text.setTextColor(resources.getColor(R.color.color_000000))
-                binding.layout11Image.colorFilter = PorterDuffColorFilter(resources.getColor(R.color.color_000000), PorterDuff.Mode.SRC_IN)
+                binding.layout11Image.colorFilter = PorterDuffColorFilter(resources.getColor(
+                    R.color.color_000000
+                ), PorterDuff.Mode.SRC_IN)
                 binding.layout11Text.setTextColor(resources.getColor(R.color.color_000000))
             }
         }

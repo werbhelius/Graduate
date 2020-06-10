@@ -3,6 +3,9 @@ package com.werb.graduate
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.werb.graduate.ui.BackgroundFragment
+import com.werb.graduate.ui.CharactersFragment
+import com.werb.graduate.ui.PropFragment
 
 /**
  * Created by wanbo on 2020/6/2.

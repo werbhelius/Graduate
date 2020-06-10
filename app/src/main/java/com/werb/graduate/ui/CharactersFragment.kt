@@ -1,4 +1,4 @@
-package com.werb.graduate
+package com.werb.graduate.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,14 +7,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.werb.graduate.R
 import com.werb.graduate.databinding.FragmentCharactersBinding
-import com.werb.graduate.events.AddBackgroundEvent
 import com.werb.graduate.holder.StickerHolder
 import com.werb.graduate.model.Sticker
 import com.werb.graduate.model.StickersManager
 import com.werb.library.MoreAdapter
 import com.werb.library.action.MoreClickListener
-import org.greenrobot.eventbus.EventBus
 
 /**
  * Created by wanbo on 2020/6/2.

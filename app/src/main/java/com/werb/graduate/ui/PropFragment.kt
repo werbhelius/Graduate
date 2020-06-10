@@ -1,4 +1,4 @@
-package com.werb.graduate
+package com.werb.graduate.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.werb.graduate.R
 import com.werb.graduate.databinding.FragmentPropBinding
 import com.werb.graduate.holder.StickerHolder
 import com.werb.graduate.model.Sticker
