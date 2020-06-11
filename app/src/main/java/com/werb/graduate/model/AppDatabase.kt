@@ -8,11 +8,12 @@ import com.werb.graduate.MyApp
 /**
  * Created by wanbo on 2020/6/4.
  */
-@Database(entities = [Background::class, People::class], version = 1)
+@Database(entities = [Background::class, People::class, Avatar::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun userDao(): BackgroundDao
     abstract fun peopleDao(): PeopleDao
+    abstract fun avatarDao(): AvatarDao
 
     companion object {
         private var sInstance: AppDatabase? = null

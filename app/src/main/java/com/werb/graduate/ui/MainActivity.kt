@@ -194,7 +194,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.Q)
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onAddBackgroundEvent(event: AddBackgroundEvent) {
         editManager.imageRatio = ImageRatio.ORIGINAL

@@ -14,6 +14,7 @@ object StickersManager {
 
     private var backgroundStickers = mutableListOf<Sticker>()
     private var peopleStickers = mutableListOf<Sticker>()
+    private var avatarStickers = mutableListOf<Sticker>()
 
     var propsStickers = listOf(
         Sticker(localImageName = "prop1"),
@@ -90,6 +91,29 @@ object StickersManager {
         peopleStickers.add(1, Sticker(localImageUri = uri))
         AppDatabase.getInstance().asyncAction { database ->
             database.peopleDao().insert(People(imageUri = uri.toString()))
+            success()
+        }
+    }
+
+    fun getAvatars(block:(List<Sticker>) -> Unit) {
+        avatarStickers = mutableListOf(Sticker(isAddImage = true),
+            Sticker(localImageName = "avatar1"))
+        AppDatabase.getInstance().asyncAction { database ->
+            val avatars = database.avatarDao().getAll().reversed()
+            syncAction( {
+                val _avatarStickers = avatars.map { Sticker(localImageUri = Uri.parse(it.imageUri)) }
+                if (_avatarStickers.isNotEmpty()) {
+                    avatarStickers.addAll(1, _avatarStickers)
+                }
+                block.invoke(avatarStickers)
+            })
+        }
+    }
+
+    fun addAvatar(uri: Uri, success: () -> Unit) {
+        avatarStickers.add(1, Sticker(localImageUri = uri))
+        AppDatabase.getInstance().asyncAction { database ->
+            database.avatarDao().insert(Avatar(imageUri = uri.toString()))
             success()
         }
     }

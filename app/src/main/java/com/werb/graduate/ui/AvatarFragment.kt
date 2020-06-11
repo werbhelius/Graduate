@@ -48,7 +48,9 @@ class AvatarFragment: Fragment() {
             attachTo(binding.listAvatar)
         }
 
-        adapter.loadData(StickersManager.propsStickers)
+        StickersManager.getAvatars { avatars ->
+            adapter.loadData(avatars)
+        }
     }
 
     private val onclick = object : MoreClickListener() {

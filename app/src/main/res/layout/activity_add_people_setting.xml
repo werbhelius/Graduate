@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/color_FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/returnBtn"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/ic_return"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/saveBtn"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:gravity="center"
+            android:text="设置"
+            android:textColor="@color/color_000000"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/xingbieLayout"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="30dp"
+        android:background="@color/color_FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="65dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textColor="@color/color_000000"
+            android:text="性别"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="42dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/default_selected_bg">
+
+            <com.addisonelliott.segmentedbutton.SegmentedButtonGroup
+                android:id="@+id/xingbieSementedBtnGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@color/color_E7E8EA"
+                app:selectedBackground="@drawable/selected_bg"
+                android:orientation="horizontal"
+                app:dividerWidth="1dp"
+                app:position="0">
+
+                <com.addisonelliott.segmentedbutton.SegmentedButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:padding="8dp"
+                    android:layout_marginStart="3dp"
+                    app:selectedTextColor="@color/color_000000"
+                    app:text="男"
+                    app:textColor="@color/color_000000" />
+
+                <com.addisonelliott.segmentedbutton.SegmentedButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:padding="8dp"
+                    android:layout_marginEnd="3dp"
+                    app:selectedTextColor="@color/color_000000"
+                    app:text="女"
+                    app:textColor="@color/color_000000"/>
+
+            </com.addisonelliott.segmentedbutton.SegmentedButtonGroup>
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/xueweiLayout"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:background="@color/color_FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/xingbieLayout">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="65dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textColor="@color/color_000000"
+            android:text="学位"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="42dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/default_selected_bg">
+
+            <com.addisonelliott.segmentedbutton.SegmentedButtonGroup
+                android:id="@+id/xueweiSementedBtnGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@color/color_E7E8EA"
+                app:selectedBackground="@drawable/selected_bg"
+                android:orientation="horizontal"
+                app:dividerWidth="1dp"
+                app:position="0">
+
+                <com.addisonelliott.segmentedbutton.SegmentedButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:padding="8dp"
+                    android:layout_marginStart="3dp"
+                    app:selectedTextColor="@color/color_000000"
+                    app:text="学士"
+                    app:textColor="@color/color_000000" />
+
+                <com.addisonelliott.segmentedbutton.SegmentedButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:padding="8dp"
+                    android:layout_marginStart="3dp"
+                    app:selectedTextColor="@color/color_000000"
+                    app:text="硕士"
+                    app:textColor="@color/color_000000" />
+
+                <com.addisonelliott.segmentedbutton.SegmentedButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:padding="8dp"
+                    android:layout_marginEnd="3dp"
+                    app:selectedTextColor="@color/color_000000"
+                    app:text="博士"
+                    app:textColor="@color/color_000000"/>
+
+            </com.addisonelliott.segmentedbutton.SegmentedButtonGroup>
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:background="@color/color_FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/xueweiLayout">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="65dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textColor="@color/color_000000"
+            android:text="学科"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="42dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/default_selected_bg">
+
+            <com.addisonelliott.segmentedbutton.SegmentedButtonGroup
+                android:id="@+id/xuekeSementedBtnGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@color/color_E7E8EA"
+                app:selectedBackground="@drawable/selected_bg"
+                android:orientation="horizontal"
+                app:dividerWidth="1dp"
+                app:position="0">
+
+                <com.addisonelliott.segmentedbutton.SegmentedButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:padding="8dp"
+                    android:layout_marginStart="3dp"
+                    app:selectedTextColor="@color/color_000000"
+                    app:text="文"
+                    app:textColor="@color/color_000000" />
+
+                <com.addisonelliott.segmentedbutton.SegmentedButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:padding="8dp"
+                    android:layout_marginStart="3dp"
+                    app:selectedTextColor="@color/color_000000"
+                    app:text="理"
+                    app:textColor="@color/color_000000" />
+
+                <com.addisonelliott.segmentedbutton.SegmentedButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:padding="8dp"
+                    android:layout_marginEnd="3dp"
+                    app:selectedTextColor="@color/color_000000"
+                    app:text="工"
+                    app:textColor="@color/color_000000"/>
+
+                <com.addisonelliott.segmentedbutton.SegmentedButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:padding="8dp"
+                    android:layout_marginEnd="3dp"
+                    app:selectedTextColor="@color/color_000000"
+                    app:text="军"
+                    app:textColor="@color/color_000000"/>
+
+                <com.addisonelliott.segmentedbutton.SegmentedButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:padding="8dp"
+                    android:layout_marginEnd="3dp"
+                    app:selectedTextColor="@color/color_000000"
+                    app:text="医"
+                    app:textColor="@color/color_000000"/>
+
+                <com.addisonelliott.segmentedbutton.SegmentedButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:padding="8dp"
+                    android:layout_marginEnd="3dp"
+                    app:selectedTextColor="@color/color_000000"
+                    app:text="农"
+                    app:textColor="@color/color_000000"/>
+
+            </com.addisonelliott.segmentedbutton.SegmentedButtonGroup>
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

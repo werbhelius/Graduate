@@ -24,6 +24,8 @@
 
         <activity android:name=".ui.AddPeopleActivity"/>
 
+        <activity android:name=".ui.AddPeopleSettingActivity"/>
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.werb.graduate.fileprovider"
