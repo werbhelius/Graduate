@@ -11,11 +11,15 @@ import com.werb.graduate.R
 import com.werb.graduate.databinding.FragmentAvatarBinding
 import com.werb.graduate.databinding.FragmentClothBinding
 import com.werb.graduate.databinding.FragmentPropBinding
+import com.werb.graduate.events.ChangeAddPeopleModeEvent
 import com.werb.graduate.holder.StickerHolder
 import com.werb.graduate.model.Sticker
 import com.werb.graduate.model.StickersManager
 import com.werb.library.MoreAdapter
 import com.werb.library.action.MoreClickListener
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 /**
  * Created by wanbo on 2020/6/9.
@@ -38,10 +42,12 @@ class ClothFragment: Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        EventBus.getDefault().unregister(this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        EventBus.getDefault().register(this)
         binding.listCloth.setHasFixedSize(true)
         binding.listCloth.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
         adapter.apply {
@@ -49,7 +55,9 @@ class ClothFragment: Fragment() {
             attachTo(binding.listCloth)
         }
 
-        adapter.loadData(StickersManager.propsStickers)
+        StickersManager.getCloths {
+            adapter.loadData(it)
+        }
     }
 
     private val onclick = object : MoreClickListener() {
@@ -60,6 +68,14 @@ class ClothFragment: Fragment() {
 
                 }
             }
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onChangeAddPeopleModeEvent(event: ChangeAddPeopleModeEvent) {
+        adapter.removeAllData()
+        StickersManager.getCloths {
+            adapter.loadData(it)
         }
     }
 

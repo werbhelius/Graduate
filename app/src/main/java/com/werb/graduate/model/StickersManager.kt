@@ -12,6 +12,8 @@ object StickersManager {
     var mainTabText = listOf("背景", "人物", "道具")
     var addPeopleTabText = listOf("头像", "服饰", "装饰")
 
+    var addPeopleMode = AddPeopleMode()
+
     private var backgroundStickers = mutableListOf<Sticker>()
     private var peopleStickers = mutableListOf<Sticker>()
     private var avatarStickers = mutableListOf<Sticker>()
@@ -115,6 +117,203 @@ object StickersManager {
         AppDatabase.getInstance().asyncAction { database ->
             database.avatarDao().insert(Avatar(imageUri = uri.toString()))
             success()
+        }
+    }
+
+    fun getCloths(block:(List<Sticker>) -> Unit) {
+        when(addPeopleMode.xuewei) {
+            Xuewei.XUE_SHI -> {
+                when(addPeopleMode.xueke) {
+                    Xueke.WEN -> {
+                        when(addPeopleMode.xingbie) {
+                            Xingbie.NAN -> {
+                                block(ClothManager.clothXueshiWenNan)
+                            }
+                            Xingbie.NV -> {
+                                block(ClothManager.clothXueshiWenNv)
+                            }
+                        }
+                    }
+                    Xueke.LI -> {
+                        when(addPeopleMode.xingbie) {
+                            Xingbie.NAN -> {
+                                block(ClothManager.clothXueshiLiNan)
+                            }
+                            Xingbie.NV -> {
+                                block(ClothManager.clothXueshiLiNv)
+                            }
+                        }
+                    }
+                    Xueke.GONG -> {
+                        when(addPeopleMode.xingbie) {
+                            Xingbie.NAN -> {
+                                block(ClothManager.clothXueshiGongNan)
+                            }
+                            Xingbie.NV -> {
+                                block(ClothManager.clothXueshiGongNv)
+                            }
+                        }
+                    }
+                    Xueke.JUN -> {
+                        when(addPeopleMode.xingbie) {
+                            Xingbie.NAN -> {
+                                block(ClothManager.clothXueshiJunNan)
+                            }
+                            Xingbie.NV -> {
+                                block(ClothManager.clothXueshiJunNv)
+                            }
+                        }
+                    }
+                    Xueke.YI -> {
+                        when(addPeopleMode.xingbie) {
+                            Xingbie.NAN -> {
+                                block(ClothManager.clothXueshiYiNan)
+                            }
+                            Xingbie.NV -> {
+                                block(ClothManager.clothXueshiYiNv)
+                            }
+                        }
+                    }
+                    Xueke.NONG -> {
+                        when(addPeopleMode.xingbie) {
+                            Xingbie.NAN -> {
+                                block(ClothManager.clothXueshiNongNan)
+                            }
+                            Xingbie.NV -> {
+                                block(ClothManager.clothXueshiNongNv)
+                            }
+                        }
+                    }
+                }
+            }
+            Xuewei.SHUO_SHI -> {
+                when(addPeopleMode.xueke) {
+                    Xueke.WEN -> {
+                        when(addPeopleMode.xingbie) {
+                            Xingbie.NAN -> {
+                                block(ClothManager.clothShuoshiWenNan)
+                            }
+                            Xingbie.NV -> {
+                                block(ClothManager.clothShuoshiWenNv)
+                            }
+                        }
+                    }
+                    Xueke.LI -> {
+                        when(addPeopleMode.xingbie) {
+                            Xingbie.NAN -> {
+                                block(ClothManager.clothShuoshiLiNan)
+                            }
+                            Xingbie.NV -> {
+                                block(ClothManager.clothShuoshiLiNv)
+                            }
+                        }
+                    }
+                    Xueke.GONG -> {
+                        when(addPeopleMode.xingbie) {
+                            Xingbie.NAN -> {
+                                block(ClothManager.clothShuoshiGongNan)
+                            }
+                            Xingbie.NV -> {
+                                block(ClothManager.clothShuoshiGongNv)
+                            }
+                        }
+                    }
+                    Xueke.JUN -> {
+                        when(addPeopleMode.xingbie) {
+                            Xingbie.NAN -> {
+                                block(ClothManager.clothShuoshiJunNan)
+                            }
+                            Xingbie.NV -> {
+                                block(ClothManager.clothShuoshiJunNv)
+                            }
+                        }
+                    }
+                    Xueke.YI -> {
+                        when(addPeopleMode.xingbie) {
+                            Xingbie.NAN -> {
+                                block(ClothManager.clothShuoshiYiNan)
+                            }
+                            Xingbie.NV -> {
+                                block(ClothManager.clothShuoshiYiNv)
+                            }
+                        }
+                    }
+                    Xueke.NONG -> {
+                        when(addPeopleMode.xingbie) {
+                            Xingbie.NAN -> {
+                                block(ClothManager.clothShuoshiNongNan)
+                            }
+                            Xingbie.NV -> {
+                                block(ClothManager.clothShuoshiNongNv)
+                            }
+                        }
+                    }
+                }
+            }
+            Xuewei.BO_SHI -> {
+                when(addPeopleMode.xueke) {
+                    Xueke.WEN -> {
+                        when(addPeopleMode.xingbie) {
+                            Xingbie.NAN -> {
+                                block(ClothManager.clothBoshiWenNan)
+                            }
+                            Xingbie.NV -> {
+                                block(ClothManager.clothBoshiWenNv)
+                            }
+                        }
+                    }
+                    Xueke.LI -> {
+                        when(addPeopleMode.xingbie) {
+                            Xingbie.NAN -> {
+                                block(ClothManager.clothBoshiLiNan)
+                            }
+                            Xingbie.NV -> {
+                                block(ClothManager.clothBoshiLiNv)
+                            }
+                        }
+                    }
+                    Xueke.GONG -> {
+                        when(addPeopleMode.xingbie) {
+                            Xingbie.NAN -> {
+                                block(ClothManager.clothBoshiGongNan)
+                            }
+                            Xingbie.NV -> {
+                                block(ClothManager.clothBoshiGongNv)
+                            }
+                        }
+                    }
+                    Xueke.JUN -> {
+                        when(addPeopleMode.xingbie) {
+                            Xingbie.NAN -> {
+                                block(ClothManager.clothBoshiJunNan)
+                            }
+                            Xingbie.NV -> {
+                                block(ClothManager.clothBoshiJunNv)
+                            }
+                        }
+                    }
+                    Xueke.YI -> {
+                        when(addPeopleMode.xingbie) {
+                            Xingbie.NAN -> {
+                                block(ClothManager.clothBoshiYiNan)
+                            }
+                            Xingbie.NV -> {
+                                block(ClothManager.clothBoshiYiNv)
+                            }
+                        }
+                    }
+                    Xueke.NONG -> {
+                        when(addPeopleMode.xingbie) {
+                            Xingbie.NAN -> {
+                                block(ClothManager.clothBoshiNongNan)
+                            }
+                            Xingbie.NV -> {
+                                block(ClothManager.clothBoshiNongNv)
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 

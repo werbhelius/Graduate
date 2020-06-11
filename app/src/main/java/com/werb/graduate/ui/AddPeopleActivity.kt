@@ -7,8 +7,8 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.werb.graduate.adapter.AddPeoplePagerAdapter
 import com.werb.graduate.databinding.ActivityAddPeopleBinding
 import com.werb.graduate.events.ChangeAddPeopleModeEvent
-import com.werb.graduate.model.AddPeopleMode
 import com.werb.graduate.model.StickersManager
+import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
@@ -18,7 +18,6 @@ import org.greenrobot.eventbus.ThreadMode
 class AddPeopleActivity: AppCompatActivity() {
 
     private lateinit var binding: ActivityAddPeopleBinding
-    private var addPeopleMode = AddPeopleMode()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,16 +48,8 @@ class AddPeopleActivity: AppCompatActivity() {
     }
 
     private fun openAddPeople() {
-        val intent = Intent(this, AddPeopleSettingActivity::class.java).apply {
-            putExtra("add_people_mode", addPeopleMode)
-        }
+        val intent = Intent(this, AddPeopleSettingActivity::class.java)
         startActivity(intent)
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onChangeAddPeopleModeEvent(event: ChangeAddPeopleModeEvent) {
-        addPeopleMode = event.addPeopleMode
-        binding.viewPager.adapter?.notifyDataSetChanged()
     }
 
 }

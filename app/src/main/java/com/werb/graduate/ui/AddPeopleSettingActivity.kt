@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.addisonelliott.segmentedbutton.SegmentedButtonGroup.OnPositionChangedListener
 import com.werb.graduate.databinding.ActivityAddPeopleSettingBinding
 import com.werb.graduate.events.ChangeAddPeopleModeEvent
-import com.werb.graduate.model.AddPeopleMode
+import com.werb.graduate.model.StickersManager
 import org.greenrobot.eventbus.EventBus
 
 
@@ -15,11 +15,9 @@ import org.greenrobot.eventbus.EventBus
 class AddPeopleSettingActivity:  AppCompatActivity(){
 
     private lateinit var binding: ActivityAddPeopleSettingBinding
-    private var  addPeopleMode = AddPeopleMode()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        addPeopleMode = intent.getSerializableExtra("add_people_mode") as AddPeopleMode
         setupUI()
     }
 
@@ -28,26 +26,30 @@ class AddPeopleSettingActivity:  AppCompatActivity(){
         val view = binding.root
         setContentView(view)
 
-        binding.xingbieSementedBtnGroup.setPosition(addPeopleMode.xingbie.position, false)
-        binding.xueweiSementedBtnGroup.setPosition(addPeopleMode.xuewei.position, false)
-        binding.xuekeSementedBtnGroup.setPosition(addPeopleMode.xueke.position, false)
+        binding.returnBtn.setOnClickListener {
+            finish()
+        }
+
+        binding.xingbieSementedBtnGroup.setPosition(StickersManager.addPeopleMode.xingbie.position, false)
+        binding.xueweiSementedBtnGroup.setPosition(StickersManager.addPeopleMode.xuewei.position, false)
+        binding.xuekeSementedBtnGroup.setPosition(StickersManager.addPeopleMode.xueke.position, false)
 
         binding.xingbieSementedBtnGroup.onPositionChangedListener = OnPositionChangedListener {
-            addPeopleMode.setXingbie(it)
+            StickersManager.addPeopleMode.setXingbie(it)
         }
 
         binding.xueweiSementedBtnGroup.onPositionChangedListener = OnPositionChangedListener {
-            addPeopleMode.setXuewei(it)
+            StickersManager.addPeopleMode.setXuewei(it)
         }
 
         binding.xuekeSementedBtnGroup.onPositionChangedListener = OnPositionChangedListener {
-            addPeopleMode.setXueke(it)
+            StickersManager.addPeopleMode.setXueke(it)
         }
     }
 
-    override fun onStop() {
-        super.onStop()
-        EventBus.getDefault().post(ChangeAddPeopleModeEvent(addPeopleMode))
+    override fun finish() {
+        EventBus.getDefault().post(ChangeAddPeopleModeEvent())
+        super.finish()
     }
 
 }
