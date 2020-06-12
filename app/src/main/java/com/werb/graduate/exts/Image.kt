@@ -40,6 +40,26 @@ fun saveBitmap(bitmap: Bitmap, path: String, complete: () -> Unit = {}) {
     }
 }
 
+fun saveBitmapToPng(bitmap: Bitmap, path: String, complete: () -> Unit = {}) {
+    val file = File(path)
+    var bos: BufferedOutputStream? = null
+    try {
+        bos = BufferedOutputStream(FileOutputStream(file))
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, bos)
+        bos.flush()
+    } catch (e: IOException) {
+        e.printStackTrace()
+    } finally {
+        try {
+            bos?.close()
+        } catch (e: Exception) {
+        }
+        Handler(Looper.getMainLooper()).post {
+            complete.invoke()
+        }
+    }
+}
+
 @Throws(IOException::class)
 fun rotateImageIfRequired(img: Bitmap, inputStream: InputStream): Bitmap? {
     val ei = ExifInterface(inputStream)
