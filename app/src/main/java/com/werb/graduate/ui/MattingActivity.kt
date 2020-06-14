@@ -1,26 +1,29 @@
 package com.werb.graduate.ui
 
-import android.Manifest
 import android.annotation.SuppressLint
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.widget.SeekBar
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
+import androidx.core.net.toUri
+import com.werb.graduate.R
 import com.werb.graduate.databinding.ActivityMattingBinding
+import com.werb.graduate.events.AddNewAvatarEvent
+import com.werb.graduate.exts.saveBitmapToPng
 import com.werb.graduate.exts.syncAction
+import com.werb.graduate.model.StickersManager
 import com.werb.graduate.network.ApiClient
 import com.werb.graduate.view.LoadingFragment
 import ja.burhanrashid52.photoeditor.PhotoEditor
-import ja.burhanrashid52.photoeditor.PhotoEditor.OnSaveListener
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import java.lang.Exception
+import org.greenrobot.eventbus.EventBus
+import java.io.File
 import java.util.*
 
 
@@ -55,6 +58,30 @@ class MattingActivity: AppCompatActivity() {
         mPhotoEditor = PhotoEditor.Builder(this, binding.photoEditorView)
             .setPinchTextScalable(true)
             .build()
+        mPhotoEditor?.setBrushDrawingMode(true)
+        mPhotoEditor?.brushColor = resources.getColor(R.color.color_FFFFFF)
+        mPhotoEditor?.brushSize = binding.sbSize.progress.toFloat()
+
+        binding.returnBtn.setOnClickListener {
+            finish()
+        }
+
+        binding.saveBtn.setOnClickListener {
+            saveToFinish()
+        }
+
+        binding.sbSize.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                mPhotoEditor?.brushSize = progress.toFloat()
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+            }
+        })
 
         binding.undoImg.setOnClickListener {
             mPhotoEditor?.also {
@@ -143,6 +170,29 @@ class MattingActivity: AppCompatActivity() {
 
             override fun onFailure(exception: Exception) {
 
+            }
+
+        })
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun saveToFinish() {
+        val dir = filesDir.absolutePath + "/avatars"
+        if (!File(dir).exists()) {
+            File(dir).mkdirs()
+        }
+        val path = filesDir.absolutePath + "/avatars/${UUID.randomUUID()}+.png}"
+        mPhotoEditor?.saveAsFile(path, object : PhotoEditor.OnSaveListener {
+
+            override fun onSuccess(imagePath: String) {
+                StickersManager.addAvatar(File(path).toUri()){
+                    EventBus.getDefault().post(AddNewAvatarEvent())
+                    finish()
+                }
+            }
+
+            override fun onFailure(exception: Exception) {
+                Toast.makeText(this@MattingActivity, "保持失败，请重试。", Toast.LENGTH_SHORT).show()
             }
 
         })

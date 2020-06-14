@@ -16,6 +16,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.werb.graduate.R
 import com.werb.graduate.databinding.FragmentAvatarBinding
+import com.werb.graduate.events.AddNewAvatarEvent
+import com.werb.graduate.events.ChangeAddPeopleModeEvent
 import com.werb.graduate.events.LoadingEvent
 import com.werb.graduate.exts.*
 import com.werb.graduate.holder.StickerHolder
@@ -29,6 +31,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import java.io.File
 import java.io.IOException
 import java.util.*
@@ -56,10 +60,12 @@ class AvatarFragment: Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        EventBus.getDefault().unregister(this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        EventBus.getDefault().register(this)
         binding.listAvatar.setHasFixedSize(true)
         binding.listAvatar.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
         adapter.apply {
@@ -133,6 +139,14 @@ class AvatarFragment: Fragment() {
                     Toast.makeText(requireContext(), "剪裁失败，请重试。", Toast.LENGTH_SHORT).show()
                 }
             }
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onAddNewAvatarEvent(event: AddNewAvatarEvent) {
+        adapter.removeAllData()
+        StickersManager.getAvatars {
+            adapter.loadData(it)
         }
     }
 
