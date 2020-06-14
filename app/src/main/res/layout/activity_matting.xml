@@ -56,8 +56,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/redoImg"
+        app:layout_constraintBottom_toTopOf="@+id/editLayout"
         app:srcCompat="@drawable/ic_flare_24px"/>
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -65,19 +66,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toBottomOf="@id/redoImg"
-        app:layout_constraintEnd_toStartOf="@id/redoImg"
-        app:srcCompat="@drawable/ic_undo_24px" />
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/redoImg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@+id/editLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_redo_24px" />
+        app:srcCompat="@drawable/ic_undo_24px" />
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/editLayout"
