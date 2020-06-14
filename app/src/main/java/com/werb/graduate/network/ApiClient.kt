@@ -37,9 +37,9 @@ object ApiClient {
             .create(API::class.java)
     }
 
-    fun mattingImage(fileUri: Uri, block:(InputStream?) -> Unit) {
+    fun mattingImage(path: String, block:(InputStream?) -> Unit) {
 
-        val file = File(fileUri.path!!)
+        val file = File(path)
 
         val client = provideOkHttpClient()
 

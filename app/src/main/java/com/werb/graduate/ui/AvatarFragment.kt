@@ -85,7 +85,7 @@ class AvatarFragment: Fragment() {
         }
     }
 
-    fun openGallery() {
+    private fun openGallery() {
         val intent = Intent()
         intent.type = "image/*"
         intent.action = Intent.ACTION_GET_CONTENT
@@ -93,6 +93,12 @@ class AvatarFragment: Fragment() {
         startActivityForResult(
             Intent.createChooser(intent, "Select Picture"), PICK_REQUEST
         )
+    }
+
+    private fun openMatting(path: String) {
+        val intent = Intent(requireActivity(), MattingActivity::class.java)
+        intent.putExtra(MattingActivity.originalBitmapPath, path)
+        startActivity(intent)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -120,27 +126,7 @@ class AvatarFragment: Fragment() {
                 UCrop.REQUEST_CROP -> {
                     val resultUri = UCrop.getOutput(data!!)
                     resultUri?.also { uri ->
-                        GlobalScope.launch(Dispatchers.Default) {
-                            ApiClient.mattingImage(resultUri) { result ->
-                                val bitmap = BitmapFactory.decodeStream(result)
-                                bitmap?.also {
-                                    val dir =
-                                        requireContext().filesDir.absolutePath + "/avatars"
-                                    if (!File(dir).exists()) {
-                                        File(dir).mkdirs()
-                                    }
-                                    val path = requireContext().filesDir.absolutePath + "/avatars/${UUID.randomUUID()}+.png}"
-                                    saveBitmapToPng(bitmap, path) {
-                                        StickersManager.addAvatar(File(path).toUri()){
-                                            StickersManager.getAvatars { list ->
-                                                adapter.removeAllData()
-                                                adapter.loadData(list)
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                        openMatting(uri.path!!)
                     }
                 }
                 UCrop.RESULT_ERROR -> {

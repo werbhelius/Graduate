@@ -28,6 +28,8 @@
 
         <activity android:name=".ui.AddPeopleSettingActivity"/>
 
+        <activity android:name=".ui.MattingActivity"/>
+
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
