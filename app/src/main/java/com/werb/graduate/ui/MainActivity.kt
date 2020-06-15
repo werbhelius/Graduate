@@ -28,6 +28,7 @@ import com.werb.graduate.databinding.ActivityMainBinding
 import com.werb.graduate.events.AddBackgroundEvent
 import com.werb.graduate.events.AddPeopleToBgEvent
 import com.werb.graduate.exts.getImage
+import com.werb.graduate.exts.syncAction
 import com.werb.graduate.model.StickersManager
 import ja.burhanrashid52.photoeditor.OnSaveBitmap
 import ja.burhanrashid52.photoeditor.PhotoEditor
@@ -111,6 +112,23 @@ class MainActivity : AppCompatActivity() {
         }
 
         mPhotoEditor = PhotoEditor.Builder(this, binding.photoEditorView).build()
+
+        StickersManager.getBackgrounds { backgrounds ->
+            syncAction({
+                if (backgrounds.isNotEmpty()) {
+                    EventBus.getDefault().post(AddBackgroundEvent(backgrounds[1]))
+                }
+            })
+        }
+
+        StickersManager.getPeoples {
+            syncAction({
+                if (it.isNotEmpty()) {
+                    EventBus.getDefault().post(AddPeopleToBgEvent(it[1]))
+                }
+            })
+
+        }
     }
 
     private fun updateLayoutRatioColor(imageRatio: ImageRatio) {

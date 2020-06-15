@@ -64,11 +64,6 @@ class BackgroundFragment: Fragment() {
 
         StickersManager.getBackgrounds { backgrounds ->
             adapter.loadData(backgrounds)
-            syncAction({
-                if (backgrounds.isNotEmpty()) {
-                    EventBus.getDefault().post(AddBackgroundEvent(backgrounds[1]))
-                }
-            })
         }
     }
 

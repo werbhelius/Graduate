@@ -10,9 +10,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.werb.graduate.R
 import com.werb.graduate.databinding.FragmentCharactersBinding
+import com.werb.graduate.events.AddBackgroundEvent
 import com.werb.graduate.events.AddNewAvatarEvent
 import com.werb.graduate.events.AddPeopleToBgEvent
 import com.werb.graduate.events.AddPeopleToListEvent
+import com.werb.graduate.exts.syncAction
 import com.werb.graduate.holder.StickerHolder
 import com.werb.graduate.model.Sticker
 import com.werb.graduate.model.StickersManager

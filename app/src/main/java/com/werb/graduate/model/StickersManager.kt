@@ -49,14 +49,14 @@ object StickersManager {
     )
 
     fun getBackgrounds(block:(List<Sticker>) -> Unit) {
-        backgroundStickers = mutableListOf(Sticker(isAddImage = true),
-            Sticker(localImageName = "scenery1"),
-            Sticker(localImageName = "scenery2"),
-            Sticker(localImageName = "scenery3"),
-            Sticker(localImageName = "scenery4"))
         AppDatabase.getInstance().asyncAction { database ->
             val backgrounds = database.userDao().getAll().reversed()
             syncAction( {
+                backgroundStickers = mutableListOf(Sticker(isAddImage = true),
+                    Sticker(localImageName = "scenery1"),
+                    Sticker(localImageName = "scenery2"),
+                    Sticker(localImageName = "scenery3"),
+                    Sticker(localImageName = "scenery4"))
                 val _backgroundStickers = backgrounds.map { Sticker(localImageUri = Uri.parse(it.imageUri)) }
                 if (_backgroundStickers.isNotEmpty()) {
                     backgroundStickers.addAll(1, _backgroundStickers)
@@ -75,11 +75,11 @@ object StickersManager {
     }
 
     fun getPeoples(block:(List<Sticker>) -> Unit) {
-        peopleStickers = mutableListOf(Sticker(isAddImage = true),
-            Sticker(localImageName = "people1"))
         AppDatabase.getInstance().asyncAction { database ->
             val peoples = database.peopleDao().getAll().reversed()
             syncAction( {
+                peopleStickers = mutableListOf(Sticker(isAddImage = true),
+                    Sticker(localImageName = "people1"))
                 val _peoplesStickers = peoples.map { Sticker(localImageUri = Uri.parse(it.imageUri)) }
                 if (_peoplesStickers.isNotEmpty()) {
                     peopleStickers.addAll(1, _peoplesStickers)
