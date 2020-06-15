@@ -17,6 +17,7 @@ import com.werb.graduate.events.AddBackgroundEvent
 import com.werb.graduate.exts.getFileName
 import com.werb.graduate.exts.rotateImageIfRequired
 import com.werb.graduate.exts.saveBitmap
+import com.werb.graduate.exts.syncAction
 import com.werb.graduate.holder.StickerHolder
 import com.werb.graduate.model.Sticker
 import com.werb.graduate.model.StickersManager
@@ -63,6 +64,11 @@ class BackgroundFragment: Fragment() {
 
         StickersManager.getBackgrounds { backgrounds ->
             adapter.loadData(backgrounds)
+            syncAction({
+                if (backgrounds.isNotEmpty()) {
+                    EventBus.getDefault().post(AddBackgroundEvent(backgrounds[1]))
+                }
+            })
         }
     }
 
