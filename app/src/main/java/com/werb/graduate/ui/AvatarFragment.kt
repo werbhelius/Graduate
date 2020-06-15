@@ -2,10 +2,10 @@ package com.werb.graduate.ui
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
-import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,18 +16,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.werb.graduate.R
 import com.werb.graduate.databinding.FragmentAvatarBinding
-import com.werb.graduate.events.*
-import com.werb.graduate.exts.*
+import com.werb.graduate.events.AddAvatarToPeopleEvent
+import com.werb.graduate.events.AddNewAvatarEvent
+import com.werb.graduate.exts.saveBitmapToPng
 import com.werb.graduate.holder.StickerHolder
 import com.werb.graduate.model.Sticker
 import com.werb.graduate.model.StickersManager
-import com.werb.graduate.network.ApiClient
 import com.werb.library.MoreAdapter
 import com.werb.library.action.MoreClickListener
 import com.yalantis.ucrop.UCrop
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -115,16 +112,25 @@ class AvatarFragment: Fragment() {
                 PICK_REQUEST -> try {
                     val selectedPhotoUri = data!!.data
                     selectedPhotoUri?.also { uri ->
-                        uri.getFileName(requireContext()) { name ->
-                            val resolver = requireContext().contentResolver
-                            resolver.openInputStream(uri).use { stream ->
-                                val file = createTemporalFileFrom(requireContext(), stream, name)
-                                val path = requireContext().cacheDir.absolutePath + "/cache_$name"
-                                UCrop.of(file!!.toUri(), Uri.parse(path))
-                                    .withAspectRatio(1f, 1f)
-                                    .withMaxResultSize(1024, 1024)
-                                    .start(requireActivity(), this)
+                        val resolver = requireContext().contentResolver
+                        resolver.openInputStream(uri).use { stream ->
+                            val bmp = resolver.openInputStream(uri).use { bmpIn ->
+                                BitmapFactory.decodeStream(bmpIn)
                             }
+                            bmp?.also {
+                                val orgPath = requireContext().cacheDir.absolutePath + "/cache_${UUID.randomUUID()}.png"
+                                saveBitmapToPng(bmp, orgPath) {
+                                    val path = requireContext().cacheDir.absolutePath + "/cache_${UUID.randomUUID()}.png"
+                                    UCrop.of(File(orgPath).toUri(), Uri.parse(path))
+                                        .withOptions(UCrop.Options().apply {
+                                            setCompressionFormat(Bitmap.CompressFormat.PNG)
+                                        })
+                                        .withAspectRatio(1f, 1f)
+                                        .withMaxResultSize(1024, 1024)
+                                        .start(requireActivity(), this)
+                                }
+                            }
+
                         }
                     }
                 } catch (e: IOException) {
