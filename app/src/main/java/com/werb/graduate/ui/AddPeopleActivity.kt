@@ -10,9 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.tabs.TabLayoutMediator
 import com.werb.graduate.adapter.AddPeoplePagerAdapter
 import com.werb.graduate.databinding.ActivityAddPeopleBinding
-import com.werb.graduate.events.AddBackgroundEvent
-import com.werb.graduate.events.ChangeAddPeopleModeEvent
-import com.werb.graduate.events.LoadingEvent
+import com.werb.graduate.events.*
 import com.werb.graduate.exts.getImage
 import com.werb.graduate.model.StickersManager
 import ja.burhanrashid52.photoeditor.PhotoEditor
@@ -30,7 +28,7 @@ class AddPeopleActivity: AppCompatActivity() {
     private lateinit var binding: ActivityAddPeopleBinding
     private lateinit var mPhotoEditor: PhotoEditor
     private var hatImageView: ImageView? = null
-    private var closeImageView: ImageView? = null
+    private var clothImageView: ImageView? = null
     private var avatarImageView: ImageView? = null
 
     override fun onStart() {
@@ -88,8 +86,8 @@ class AddPeopleActivity: AppCompatActivity() {
             val sticker = it.first()
             val bmp = BitmapFactory.decodeResource(resources, getImage(sticker.localImageName))
             val rootView = mPhotoEditor.addImageWithReturn(bmp)
-            closeImageView = rootView.findViewById(R.id.imgPhotoEditorImage)
-            closeImageView?.also {
+            clothImageView = rootView.findViewById(R.id.imgPhotoEditorImage)
+            clothImageView?.also {
                 mPhotoEditor.addPeopleViewToParent(rootView, ViewType.IMAGE, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, 450)
             }
         }
@@ -136,6 +134,31 @@ class AddPeopleActivity: AppCompatActivity() {
         } else {
             binding.loadingGroup.visibility = View.GONE
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onAddAvatarEvent(event: AddAvatarToPeopleEvent) {
+        event.sticker.localImageUri?.also {
+            contentResolver.openInputStream(it)?.also { stream ->
+                val bmp = BitmapFactory.decodeStream(stream)
+                avatarImageView?.setImageBitmap(bmp)
+            }
+        } ?: run {
+            val bmp = BitmapFactory.decodeResource(resources, getImage(event.sticker.localImageName))
+            avatarImageView?.setImageBitmap(bmp)
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onAddClothEvent(event: AddClothToPeopleEvent) {
+        val bmp = BitmapFactory.decodeResource(resources, getImage(event.sticker.localImageName))
+        clothImageView?.setImageBitmap(bmp)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onAddDecorateEvent(event: AddDecorateToPeopleEvent) {
+        val bmp = BitmapFactory.decodeResource(resources, getImage(event.sticker.localImageName))
+        hatImageView?.setImageBitmap(bmp)
     }
 
 }

@@ -16,9 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.werb.graduate.R
 import com.werb.graduate.databinding.FragmentAvatarBinding
-import com.werb.graduate.events.AddNewAvatarEvent
-import com.werb.graduate.events.ChangeAddPeopleModeEvent
-import com.werb.graduate.events.LoadingEvent
+import com.werb.graduate.events.*
 import com.werb.graduate.exts.*
 import com.werb.graduate.holder.StickerHolder
 import com.werb.graduate.model.Sticker
@@ -85,6 +83,8 @@ class AvatarFragment: Fragment() {
                 R.id.displayImage -> {
                     if (sticker.isAddImage) {
                         openGallery()
+                    } else {
+                        EventBus.getDefault().post(AddAvatarToPeopleEvent(sticker))
                     }
                 }
             }

@@ -12,6 +12,8 @@ import com.werb.graduate.databinding.FragmentAvatarBinding
 import com.werb.graduate.databinding.FragmentClothBinding
 import com.werb.graduate.databinding.FragmentDecorateBinding
 import com.werb.graduate.databinding.FragmentPropBinding
+import com.werb.graduate.events.AddClothToPeopleEvent
+import com.werb.graduate.events.AddDecorateToPeopleEvent
 import com.werb.graduate.events.ChangeAddPeopleModeEvent
 import com.werb.graduate.holder.StickerHolder
 import com.werb.graduate.model.Sticker
@@ -66,7 +68,7 @@ class DecorateFragment: Fragment() {
             val sticker = view.tag as Sticker
             when(view.id) {
                 R.id.displayImage -> {
-
+                    EventBus.getDefault().post(AddDecorateToPeopleEvent(sticker))
                 }
             }
         }
