@@ -13,6 +13,7 @@ import androidx.core.net.toUri
 import com.werb.graduate.R
 import com.werb.graduate.databinding.ActivityMattingBinding
 import com.werb.graduate.events.AddNewAvatarEvent
+import com.werb.graduate.exts.saveBitmap
 import com.werb.graduate.exts.saveBitmapToPng
 import com.werb.graduate.exts.syncAction
 import com.werb.graduate.model.StickersManager
@@ -41,7 +42,6 @@ class MattingActivity: AppCompatActivity() {
     private var loadingDialog: LoadingFragment = LoadingFragment()
     private lateinit var binding: ActivityMattingBinding
     private var originalBitmapPath = ""
-    private var mPhotoEditor:PhotoEditor? = null
     private val bitmaps = mutableListOf<Bitmap>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,12 +55,8 @@ class MattingActivity: AppCompatActivity() {
         binding = ActivityMattingBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-        mPhotoEditor = PhotoEditor.Builder(this, binding.photoEditorView)
-            .setPinchTextScalable(true)
-            .build()
-        mPhotoEditor?.setBrushDrawingMode(true)
-        mPhotoEditor?.brushColor = resources.getColor(R.color.color_FFFFFF)
-        mPhotoEditor?.brushSize = binding.sbSize.progress.toFloat()
+        binding.imageBg.setBrushDrawingMode(true)
+        binding.imageBg.setBrushSize(binding.sbSize.progress.toFloat())
 
         binding.returnBtn.setOnClickListener {
             finish()
@@ -72,7 +68,7 @@ class MattingActivity: AppCompatActivity() {
 
         binding.sbSize.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                mPhotoEditor?.brushSize = progress.toFloat()
+                binding.imageBg.setBrushSize(progress.toFloat())
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
@@ -84,15 +80,13 @@ class MattingActivity: AppCompatActivity() {
         })
 
         binding.undoImg.setOnClickListener {
-            mPhotoEditor?.also {
-                val ss = it.undo()
-                if (!ss) {
-                    if (bitmaps.size > 1) {
-                        bitmaps.removeAt(bitmaps.size - 1)
-                    }
-                    if (bitmaps.size > 0) {
-                        binding.photoEditorView.source.setImageBitmap(bitmaps.last())
-                    }
+            val ss = binding.imageBg.undo()
+            if (!ss) {
+                if (bitmaps.size > 1) {
+                    bitmaps.removeAt(bitmaps.size - 1)
+                }
+                if (bitmaps.size > 0) {
+                    binding.imageBg.setImageBitmap(bitmaps.last())
                 }
             }
         }
@@ -130,7 +124,7 @@ class MattingActivity: AppCompatActivity() {
 
     private fun setBitmap(bitmap: Bitmap) {
         bitmaps.add(bitmap)
-        binding.photoEditorView.source.setImageBitmap(bitmap)
+        binding.imageBg.setImageBitmap(bitmap)
     }
 
      private fun loading(show: Boolean) {
@@ -162,17 +156,11 @@ class MattingActivity: AppCompatActivity() {
     @SuppressLint("MissingPermission")
     private fun mattingCurrent(block:(Bitmap?) -> Unit) {
         val path = cacheDir.absolutePath + "/cache_${UUID.randomUUID()}.png"
-        mPhotoEditor?.saveAsFile(path, object : PhotoEditor.OnSaveListener {
-
-            override fun onSuccess(imagePath: String) {
-                matting(imagePath, block)
-            }
-
-            override fun onFailure(exception: Exception) {
-
-            }
-
-        })
+        binding.imageBg.isDrawingCacheEnabled = true
+        val bmp = binding.imageBg.drawingCache
+        saveBitmapToPng(bmp, path) {
+            matting(path, block)
+        }
     }
 
     @SuppressLint("MissingPermission")
@@ -182,20 +170,14 @@ class MattingActivity: AppCompatActivity() {
             File(dir).mkdirs()
         }
         val path = filesDir.absolutePath + "/avatars/${UUID.randomUUID()}.png"
-        mPhotoEditor?.saveAsFile(path, object : PhotoEditor.OnSaveListener {
-
-            override fun onSuccess(imagePath: String) {
-                StickersManager.addAvatar(File(path).toUri()){
-                    EventBus.getDefault().post(AddNewAvatarEvent())
-                    finish()
-                }
+        binding.imageBg.isDrawingCacheEnabled = true
+        val bmp = binding.imageBg.drawingCache
+        saveBitmapToPng(bmp, path) {
+            StickersManager.addAvatar(File(path).toUri()){
+                EventBus.getDefault().post(AddNewAvatarEvent())
+                finish()
             }
-
-            override fun onFailure(exception: Exception) {
-                Toast.makeText(this@MattingActivity, "保存失败，请重试。", Toast.LENGTH_SHORT).show()
-            }
-
-        })
+        }
     }
 
 }
