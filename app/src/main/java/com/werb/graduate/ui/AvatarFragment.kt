@@ -18,6 +18,8 @@ import com.werb.graduate.R
 import com.werb.graduate.databinding.FragmentAvatarBinding
 import com.werb.graduate.events.AddAvatarToPeopleEvent
 import com.werb.graduate.events.AddNewAvatarEvent
+import com.werb.graduate.exts.createTemporalFileFrom
+import com.werb.graduate.exts.getFileName
 import com.werb.graduate.exts.saveBitmapToPng
 import com.werb.graduate.holder.StickerHolder
 import com.werb.graduate.model.Sticker
@@ -112,25 +114,19 @@ class AvatarFragment: Fragment() {
                 PICK_REQUEST -> try {
                     val selectedPhotoUri = data!!.data
                     selectedPhotoUri?.also { uri ->
-                        val resolver = requireContext().contentResolver
-                        resolver.openInputStream(uri).use { stream ->
-                            val bmp = resolver.openInputStream(uri).use { bmpIn ->
-                                BitmapFactory.decodeStream(bmpIn)
+                        uri.getFileName(requireContext()) { name ->
+                            val resolver = requireContext().contentResolver
+                            resolver.openInputStream(uri).use { stream ->
+                                val file = createTemporalFileFrom(requireContext(), stream, name)
+                                val path = requireContext().cacheDir.absolutePath + "/cache_$name"
+                                UCrop.of(file!!.toUri(), Uri.parse(path))
+                                    .withOptions(UCrop.Options().apply {
+                                        setCompressionFormat(Bitmap.CompressFormat.PNG)
+                                    })
+                                    .withAspectRatio(1f, 1f)
+                                    .withMaxResultSize(1024, 1024)
+                                    .start(requireActivity(), this)
                             }
-                            bmp?.also {
-                                val orgPath = requireContext().cacheDir.absolutePath + "/cache_${UUID.randomUUID()}.png"
-                                saveBitmapToPng(bmp, orgPath) {
-                                    val path = requireContext().cacheDir.absolutePath + "/cache_${UUID.randomUUID()}.png"
-                                    UCrop.of(File(orgPath).toUri(), Uri.parse(path))
-                                        .withOptions(UCrop.Options().apply {
-                                            setCompressionFormat(Bitmap.CompressFormat.PNG)
-                                        })
-                                        .withAspectRatio(1f, 1f)
-                                        .withMaxResultSize(1024, 1024)
-                                        .start(requireActivity(), this)
-                                }
-                            }
-
                         }
                     }
                 } catch (e: IOException) {
