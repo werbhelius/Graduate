@@ -18,6 +18,7 @@ import com.werb.graduate.adapter.MainPagerAdapter
 import com.werb.graduate.R
 import com.werb.graduate.databinding.ActivityMainBinding
 import com.werb.graduate.events.AddBackgroundEvent
+import com.werb.graduate.events.AddPeopleToBgEvent
 import com.werb.graduate.exts.getImage
 import com.werb.graduate.model.StickersManager
 import ja.burhanrashid52.photoeditor.PhotoEditor
@@ -220,6 +221,19 @@ class MainActivity : AppCompatActivity() {
             set.setDimensionRatio(binding.photoEditorView.id, "${bounds.outWidth}:${bounds.outHeight}")
             set.applyTo(binding.root)
             binding.photoEditorView.source.setImageDrawable(resources.getDrawable(getImage(event.sticker.localImageName)))
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onAddPeopleToBg(event: AddPeopleToBgEvent) {
+        event.sticker.localImageUri?.also { uri ->
+            contentResolver.openInputStream(uri)?.also { stream ->
+                val bmp = BitmapFactory.decodeStream(stream)
+                mPhotoEditor.addImage(bmp)
+            }
+        } ?: run {
+            val bmp = BitmapFactory.decodeResource(resources, getImage(event.sticker.localImageName))
+            mPhotoEditor.addImage(bmp)
         }
     }
 
