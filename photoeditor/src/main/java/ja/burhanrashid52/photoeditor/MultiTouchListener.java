@@ -117,12 +117,6 @@ class MultiTouchListener implements OnTouchListener {
             return true;
         }
 
-        ImageView close = view.findViewById(R.id.imgPhotoEditorClose);
-
-        if (close.getVisibility() != View.VISIBLE) {
-            return  true;
-        }
-
         int action = event.getAction();
 
         int x = (int) event.getRawX();
