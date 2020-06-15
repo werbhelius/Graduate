@@ -72,6 +72,7 @@ class AvatarFragment: Fragment() {
         }
 
         StickersManager.getAvatars { avatars ->
+            adapter.removeAllData()
             adapter.loadData(avatars)
         }
     }
@@ -144,8 +145,8 @@ class AvatarFragment: Fragment() {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onAddNewAvatarEvent(event: AddNewAvatarEvent) {
-        adapter.removeAllData()
         StickersManager.getAvatars {
+            adapter.removeAllData()
             adapter.loadData(it)
         }
     }

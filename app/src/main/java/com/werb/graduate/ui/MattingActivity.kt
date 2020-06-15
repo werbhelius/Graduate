@@ -181,7 +181,7 @@ class MattingActivity: AppCompatActivity() {
         if (!File(dir).exists()) {
             File(dir).mkdirs()
         }
-        val path = filesDir.absolutePath + "/avatars/${UUID.randomUUID()}+.png}"
+        val path = filesDir.absolutePath + "/avatars/${UUID.randomUUID()}.png"
         mPhotoEditor?.saveAsFile(path, object : PhotoEditor.OnSaveListener {
 
             override fun onSuccess(imagePath: String) {
@@ -192,7 +192,7 @@ class MattingActivity: AppCompatActivity() {
             }
 
             override fun onFailure(exception: Exception) {
-                Toast.makeText(this@MattingActivity, "保持失败，请重试。", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@MattingActivity, "保存失败，请重试。", Toast.LENGTH_SHORT).show()
             }
 
         })

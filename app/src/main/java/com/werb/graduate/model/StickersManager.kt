@@ -98,11 +98,11 @@ object StickersManager {
     }
 
     fun getAvatars(block:(List<Sticker>) -> Unit) {
-        avatarStickers = mutableListOf(Sticker(isAddImage = true),
-            Sticker(localImageName = "avatar1"))
         AppDatabase.getInstance().asyncAction { database ->
             val avatars = database.avatarDao().getAll().reversed()
             syncAction( {
+                avatarStickers = mutableListOf(Sticker(isAddImage = true),
+                    Sticker(localImageName = "avatar1"))
                 val _avatarStickers = avatars.map { Sticker(localImageUri = Uri.parse(it.imageUri)) }
                 if (_avatarStickers.isNotEmpty()) {
                     avatarStickers.addAll(1, _avatarStickers)

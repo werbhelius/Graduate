@@ -1,12 +1,15 @@
 package com.werb.graduate.ui
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.net.toUri
 import com.google.android.material.tabs.TabLayoutMediator
 import com.werb.graduate.adapter.AddPeoplePagerAdapter
 import com.werb.graduate.databinding.ActivityAddPeopleBinding
@@ -19,6 +22,8 @@ import ja.burhanrashid52.photoeditor.ViewType
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import java.io.File
+import java.util.*
 
 /**
  * Created by wanbo on 2020/6/10.
@@ -58,6 +63,9 @@ class AddPeopleActivity: AppCompatActivity() {
         }
         binding.returnBtn.setOnClickListener {
             finish()
+        }
+        binding.saveBtn.setOnClickListener {
+            saveToFinish()
         }
         mPhotoEditor = PhotoEditor.Builder(this, binding.photoEditorView).build()
     }
@@ -125,6 +133,29 @@ class AddPeopleActivity: AppCompatActivity() {
             }
 
         }
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun saveToFinish() {
+        val dir = filesDir.absolutePath + "/peoples"
+        if (!File(dir).exists()) {
+            File(dir).mkdirs()
+        }
+        val path = filesDir.absolutePath + "/peoples/${UUID.randomUUID()}.png"
+        mPhotoEditor.saveAsFile(path, object : PhotoEditor.OnSaveListener {
+
+            override fun onSuccess(imagePath: String) {
+                StickersManager.addPeople(File(path).toUri()){
+                    EventBus.getDefault().post(AddPeopleToListEvent())
+                    finish()
+                }
+            }
+
+            override fun onFailure(exception: Exception) {
+                Toast.makeText(this@AddPeopleActivity, "保存失败，请重试。", Toast.LENGTH_SHORT).show()
+            }
+
+        })
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

@@ -10,13 +10,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.werb.graduate.R
 import com.werb.graduate.databinding.FragmentCharactersBinding
+import com.werb.graduate.events.AddNewAvatarEvent
 import com.werb.graduate.events.AddPeopleToBgEvent
+import com.werb.graduate.events.AddPeopleToListEvent
 import com.werb.graduate.holder.StickerHolder
 import com.werb.graduate.model.Sticker
 import com.werb.graduate.model.StickersManager
 import com.werb.library.MoreAdapter
 import com.werb.library.action.MoreClickListener
 import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 /**
  * Created by wanbo on 2020/6/2.
@@ -39,10 +43,12 @@ class CharactersFragment: Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        EventBus.getDefault().unregister(this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        EventBus.getDefault().register(this)
         binding.listPeople.setHasFixedSize(true)
         binding.listPeople.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
         adapter.apply {
@@ -73,6 +79,14 @@ class CharactersFragment: Fragment() {
     private fun openAddPeople() {
         val intent = Intent(requireContext(), AddPeopleActivity::class.java)
         startActivity(intent)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onAddPeopleListEvent(event: AddPeopleToListEvent) {
+        StickersManager.getPeoples {
+            adapter.removeAllData()
+            adapter.loadData(it)
+        }
     }
 
 }
