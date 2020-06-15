@@ -1,10 +1,20 @@
 package com.werb.graduate.ui
 
+import android.annotation.SuppressLint
+import android.content.ContentResolver
+import android.content.ContentValues
+import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.transition.TransitionManager
@@ -12,17 +22,23 @@ import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayoutMediator
 import com.werb.graduate.EditManager
 import com.werb.graduate.ImageRatio
-import com.werb.graduate.adapter.MainPagerAdapter
 import com.werb.graduate.R
+import com.werb.graduate.adapter.MainPagerAdapter
 import com.werb.graduate.databinding.ActivityMainBinding
 import com.werb.graduate.events.AddBackgroundEvent
 import com.werb.graduate.events.AddPeopleToBgEvent
 import com.werb.graduate.exts.getImage
 import com.werb.graduate.model.StickersManager
+import ja.burhanrashid52.photoeditor.OnSaveBitmap
 import ja.burhanrashid52.photoeditor.PhotoEditor
+import ja.burhanrashid52.photoeditor.SaveSettings
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import java.io.File
+import java.io.FileOutputStream
+import java.io.OutputStream
+import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -89,6 +105,9 @@ class MainActivity : AppCompatActivity() {
         }
         binding.layout169.setOnClickListener {
             editManager.imageRatio = ImageRatio.SIXTEEN_NINE
+        }
+        binding.saveBtn.setOnClickListener {
+            saveToFinish()
         }
 
         mPhotoEditor = PhotoEditor.Builder(this, binding.photoEditorView).build()
@@ -191,6 +210,53 @@ class MainActivity : AppCompatActivity() {
                 binding.layout11Text.setTextColor(resources.getColor(R.color.color_000000))
             }
         }
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun saveToFinish() {
+        val settings = SaveSettings.Builder()
+            .setClearViewsEnabled(false)
+            .setCompressFormat(Bitmap.CompressFormat.JPEG)
+            .build()
+        mPhotoEditor.saveAsBitmap(settings, object : OnSaveBitmap{
+            override fun onFailure(e: java.lang.Exception?) {
+                Toast.makeText(this@MainActivity, "保存失败，请重试。", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onBitmapReady(saveBitmap: Bitmap?) {
+                saveBitmap?.also {
+                    saveImage(it, UUID.randomUUID().toString() + ".png")
+                    Toast.makeText(this@MainActivity, "保存成功，请在系统相册查看。", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+        })
+    }
+
+    private fun saveImage(bitmap: Bitmap, name: String) {
+        var fos: OutputStream? = null
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            val resolver: ContentResolver = contentResolver
+            val contentValues = ContentValues()
+            contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, "$name.jpg")
+            contentValues.put(MediaStore.MediaColumns.MIME_TYPE, "image/jpg")
+            contentValues.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
+            val imageUri: Uri? =
+                resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+            imageUri?.also {
+                fos = resolver.openOutputStream(imageUri)
+            }
+        } else {
+            val imagesDir: String =
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+                    .toString()
+            val image = File(imagesDir, "$name.jpg")
+            fos = FileOutputStream(image)
+        }
+        fos?.also {
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos)
+        }
+
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
