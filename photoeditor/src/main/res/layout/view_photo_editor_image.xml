@@ -3,20 +3,11 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/imgPhotoEditorClose"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_gravity="top|start"
-        android:elevation="1dp"
-        android:src="@drawable/ic_remove" />
-
     <FrameLayout
         android:id="@+id/frmBorder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="8dp"
-        android:background="@drawable/rounded_border_tv">
+        android:layout_margin="8dp">
 
         <ImageView
             android:id="@+id/imgPhotoEditorImage"
@@ -30,5 +21,14 @@
             android:src="@drawable/ic_remove" />
 
     </FrameLayout>
+
+    <ImageView
+        android:id="@+id/imgPhotoEditorClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|start"
+        android:visibility="invisible"
+        android:elevation="1dp"
+        android:src="@drawable/ic_cancel_24px" />
 
 </FrameLayout>

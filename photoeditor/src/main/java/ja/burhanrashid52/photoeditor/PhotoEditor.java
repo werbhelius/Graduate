@@ -106,6 +106,48 @@ public class PhotoEditor implements BrushViewChangeListener {
 
     }
 
+    public View addImageWithReturn(Bitmap desiredImage) {
+        final View imageRootView = getLayout(ViewType.IMAGE);
+        final ImageView imageView = imageRootView.findViewById(R.id.imgPhotoEditorImage);
+        final FrameLayout frmBorder = imageRootView.findViewById(R.id.frmBorder);
+        final ImageView imgClose = imageRootView.findViewById(R.id.imgPhotoEditorClose);
+
+        imageView.setImageBitmap(desiredImage);
+
+        MultiTouchListener multiTouchListener = getMultiTouchListener();
+        multiTouchListener.setOnGestureControl(new MultiTouchListener.OnGestureControl() {
+            @Override
+            public void onClick() {
+                for (int i=0; i < addedViews.size(); i++) {
+                    View root = addedViews.get(i);
+                    if (root == imageRootView) {
+                        if (root.findViewById(R.id.imgPhotoEditorClose).getVisibility() == View.VISIBLE) {
+                            root.findViewById(R.id.frmBorder).setBackgroundResource(R.drawable.rounded_border_tv2);
+                            root.findViewById(R.id.imgPhotoEditorClose).setVisibility(View.INVISIBLE);
+                        } else  {
+                            root.findViewById(R.id.frmBorder).setBackgroundResource(R.drawable.rounded_border_tv);
+                            root.findViewById(R.id.imgPhotoEditorClose).setVisibility(View.VISIBLE);
+                        }
+                    } else  {
+                        boolean isBackgroundVisible = false;
+                        root.findViewById(R.id.frmBorder).setBackgroundResource(R.drawable.rounded_border_tv2);
+                        root.findViewById(R.id.imgPhotoEditorClose).setVisibility(View.INVISIBLE);
+                    }
+                }
+            }
+
+            @Override
+            public void onLongClick() {
+
+            }
+        });
+
+        imageRootView.setOnTouchListener(multiTouchListener);
+
+        return imageRootView;
+
+    }
+
     /**
      * This add the text on the {@link PhotoEditorView} with provided parameters
      * by default {@link TextView#setText(int)} will be 18sp
@@ -287,6 +329,17 @@ public class PhotoEditor implements BrushViewChangeListener {
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
+        parentView.addView(rootView, params);
+        addedViews.add(rootView);
+        if (mOnPhotoEditorListener != null)
+            mOnPhotoEditorListener.onAddViewListener(viewType, addedViews.size());
+    }
+
+    public void addPeopleViewToParent(View rootView, ViewType viewType, int width, int height , int topMargin) {
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                width, height);
+        params.addRule(RelativeLayout.CENTER_HORIZONTAL, RelativeLayout.TRUE);
+        params.topMargin = topMargin;
         parentView.addView(rootView, params);
         addedViews.add(rootView);
         if (mOnPhotoEditorListener != null)

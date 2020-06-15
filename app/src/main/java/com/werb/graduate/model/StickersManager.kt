@@ -120,6 +120,20 @@ object StickersManager {
         }
     }
 
+    fun getHat(block:(List<Sticker>) -> Unit) {
+        when(addPeopleMode.xuewei) {
+            Xuewei.XUE_SHI -> {
+                block(xueshiHatStickers)
+            }
+            Xuewei.SHUO_SHI -> {
+                block(shuoshiHatStickers)
+            }
+            Xuewei.BO_SHI -> {
+                block(boshiHatStickers)
+            }
+        }
+    }
+
     fun getCloths(block:(List<Sticker>) -> Unit) {
         when(addPeopleMode.xuewei) {
             Xuewei.XUE_SHI -> {

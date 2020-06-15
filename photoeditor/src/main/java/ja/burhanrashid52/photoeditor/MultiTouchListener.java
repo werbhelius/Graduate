@@ -22,7 +22,7 @@ class MultiTouchListener implements OnTouchListener {
     private boolean isRotateEnabled = true;
     private boolean isTranslateEnabled = true;
     private boolean isScaleEnabled = true;
-    private float minimumScale = 0.5f;
+    private float minimumScale = 0.1f;
     private float maximumScale = 10.0f;
     private int mActivePointerId = INVALID_POINTER_ID;
     private float mPrevX, mPrevY, mPrevRawX, mPrevRawY;
@@ -117,6 +117,12 @@ class MultiTouchListener implements OnTouchListener {
             return true;
         }
 
+        ImageView close = view.findViewById(R.id.imgPhotoEditorClose);
+
+        if (close.getVisibility() != View.VISIBLE) {
+            return  true;
+        }
+
         int action = event.getAction();
 
         int x = (int) event.getRawX();
@@ -132,7 +138,7 @@ class MultiTouchListener implements OnTouchListener {
                 if (deleteView != null) {
                     deleteView.setVisibility(View.VISIBLE);
                 }
-                view.bringToFront();
+//                view.bringToFront();
                 firePhotoEditorSDKListener(view, true);
                 break;
             case MotionEvent.ACTION_MOVE:
@@ -153,8 +159,6 @@ class MultiTouchListener implements OnTouchListener {
                 if (deleteView != null && isViewInBounds(deleteView, x, y)) {
                     if (onMultiTouchListener != null)
                         onMultiTouchListener.onRemoveViewListener(view);
-                } else if (!isViewInBounds(photoEditImageView, x, y)) {
-                    view.animate().translationY(0).translationY(0);
                 }
                 if (deleteView != null) {
                     deleteView.setVisibility(View.GONE);
