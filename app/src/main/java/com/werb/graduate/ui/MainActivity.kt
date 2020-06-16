@@ -256,7 +256,7 @@ class MainActivity : AppCompatActivity() {
 
             override fun onBitmapReady(saveBitmap: Bitmap?) {
                 saveBitmap?.also {
-                    saveImage(it, UUID.randomUUID().toString() + ".png")
+                    saveImage(it, UUID.randomUUID().toString() + ".jpg")
                     Toast.makeText(this@MainActivity, "保存成功，请在系统相册查看。", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -269,7 +269,7 @@ class MainActivity : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             val resolver: ContentResolver = contentResolver
             val contentValues = ContentValues()
-            contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, "$name.jpg")
+            contentValues.put(MediaStore.MediaColumns.DISPLAY_NAME, name)
             contentValues.put(MediaStore.MediaColumns.MIME_TYPE, "image/jpg")
             contentValues.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
             val imageUri: Uri? =
@@ -281,7 +281,7 @@ class MainActivity : AppCompatActivity() {
             val imagesDir: String =
                 Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
                     .toString()
-            val image = File(imagesDir, "$name.jpg")
+            val image = File(imagesDir, name)
             fos = FileOutputStream(image)
         }
         fos?.also {

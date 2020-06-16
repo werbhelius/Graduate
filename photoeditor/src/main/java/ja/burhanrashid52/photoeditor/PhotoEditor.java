@@ -791,10 +791,16 @@ public class PhotoEditor implements BrushViewChangeListener {
                     @Override
                     protected Bitmap doInBackground(String... strings) {
                         if (parentView != null) {
-                            parentView.setDrawingCacheEnabled(true);
-                            return saveSettings.isTransparencyEnabled() ?
-                                    BitmapUtil.removeTransparency(parentView.getDrawingCache())
-                                    : parentView.getDrawingCache();
+                            try {
+                                parentView.setDrawingCacheEnabled(true);
+                                return saveSettings.isTransparencyEnabled() ?
+                                        BitmapUtil.removeTransparency(parentView.getDrawingCache())
+                                        : parentView.getDrawingCache();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                                Log.d(TAG, "Failed to save Bitmap");
+                                return null;
+                            }
                         } else {
                             return null;
                         }
