@@ -102,6 +102,7 @@ class AvatarFragment: Fragment() {
     }
 
     private fun openMatting(path: String) {
+        println(path)
         val intent = Intent(requireActivity(), MattingActivity::class.java)
         intent.putExtra(MattingActivity.originalBitmapPath, path)
         startActivity(intent)
@@ -118,7 +119,7 @@ class AvatarFragment: Fragment() {
                             val resolver = requireContext().contentResolver
                             resolver.openInputStream(uri).use { stream ->
                                 val file = createTemporalFileFrom(requireContext(), stream, name)
-                                val path = requireContext().cacheDir.absolutePath + "/cache_$name"
+                                val path = requireContext().cacheDir.absolutePath + "/cache_${UUID.randomUUID()}.png"
                                 UCrop.of(file!!.toUri(), Uri.parse(path))
                                     .withOptions(UCrop.Options().apply {
                                         setCompressionFormat(Bitmap.CompressFormat.PNG)
