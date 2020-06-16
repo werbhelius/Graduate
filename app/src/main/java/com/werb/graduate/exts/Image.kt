@@ -1,20 +1,15 @@
 package com.werb.graduate.exts
 
+import android.R.attr
 import android.app.Activity
 import android.content.Context
-import android.database.Cursor
-import android.graphics.Bitmap
-import android.graphics.Matrix
-import android.graphics.Rect
-import android.net.Uri
+import android.graphics.*
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
-import android.provider.MediaStore
 import android.view.PixelCopy
 import android.view.View
 import androidx.exifinterface.media.ExifInterface
-import com.werb.graduate.R
 import java.io.*
 
 

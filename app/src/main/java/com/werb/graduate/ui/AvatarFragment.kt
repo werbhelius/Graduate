@@ -2,8 +2,7 @@ package com.werb.graduate.ui
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
+import android.graphics.*
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -18,7 +17,6 @@ import com.werb.graduate.R
 import com.werb.graduate.databinding.FragmentAvatarBinding
 import com.werb.graduate.events.AddAvatarToPeopleEvent
 import com.werb.graduate.events.AddNewAvatarEvent
-import com.werb.graduate.exts.createTemporalFileFrom
 import com.werb.graduate.exts.getFileName
 import com.werb.graduate.exts.saveBitmapToPng
 import com.werb.graduate.holder.StickerHolder
@@ -102,7 +100,6 @@ class AvatarFragment: Fragment() {
     }
 
     private fun openMatting(path: String) {
-        println(path)
         val intent = Intent(requireActivity(), MattingActivity::class.java)
         intent.putExtra(MattingActivity.originalBitmapPath, path)
         startActivity(intent)
@@ -118,15 +115,25 @@ class AvatarFragment: Fragment() {
                         uri.getFileName(requireContext()) { name ->
                             val resolver = requireContext().contentResolver
                             resolver.openInputStream(uri).use { stream ->
-                                val file = createTemporalFileFrom(requireContext(), stream, name)
-                                val path = requireContext().cacheDir.absolutePath + "/cache_${UUID.randomUUID()}.png"
-                                UCrop.of(file!!.toUri(), Uri.parse(path))
-                                    .withOptions(UCrop.Options().apply {
-                                        setCompressionFormat(Bitmap.CompressFormat.PNG)
-                                    })
-                                    .withAspectRatio(1f, 1f)
-                                    .withMaxResultSize(1024, 1024)
-                                    .start(requireActivity(), this)
+                                val option = BitmapFactory.Options()
+                                val bmp = BitmapFactory.decodeStream(stream, null , option)
+                                val outBmp: Bitmap = Bitmap.createBitmap(option.outWidth, option.outHeight , Bitmap.Config.ARGB_8888)
+                                val canvas = Canvas(outBmp)
+                                canvas.drawColor(Color.WHITE)
+                                val dest = Rect(0, 0, option.outWidth, option.outHeight)
+                                val src = Rect(0, 0, option.outWidth, option.outHeight)
+                                canvas.drawBitmap(bmp!!, src, dest, null)
+                                val outPath = requireContext().cacheDir.absolutePath + "/cache_${UUID.randomUUID()}.png"
+                                saveBitmapToPng(outBmp, outPath) {
+                                    val path = requireContext().cacheDir.absolutePath + "/cache_${UUID.randomUUID()}.png"
+                                    UCrop.of(File(outPath).toUri(), Uri.parse(path))
+                                        .withOptions(UCrop.Options().apply {
+                                            setCompressionFormat(Bitmap.CompressFormat.PNG)
+                                        })
+                                        .withAspectRatio(1f, 1f)
+                                        .withMaxResultSize(1024, 1024)
+                                        .start(requireActivity(), this)
+                                }
                             }
                         }
                     }
