@@ -17,6 +17,6 @@ interface PeopleDao {
     @Insert
     fun insert(people: People)
 
-    @Delete
-    fun delete(people: People)
+    @Query("DELETE FROM People WHERE image_uri = :image_uri")
+    fun delete(image_uri: String)
 }

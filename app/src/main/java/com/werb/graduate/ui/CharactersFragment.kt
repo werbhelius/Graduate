@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -76,6 +77,35 @@ class CharactersFragment: Fragment() {
                 }
             }
         }
+
+        override fun onItemLongClick(view: View, position: Int): Boolean {
+            val sticker = view.tag as Sticker
+            when(view.id) {
+                R.id.displayImage -> {
+                    sticker.localImageUri?.also {
+                        deleteLocalFile(sticker)
+                    }
+                }
+            }
+            return true
+        }
+    }
+
+    private fun deleteLocalFile(sticker: Sticker) {
+        AlertDialog.Builder(requireContext())
+            .setMessage("删除这张图片？")
+            .setPositiveButton("确定"
+            ) { dialog, which ->
+                StickersManager.deletePeople(sticker) {
+                    StickersManager.getPeoples { list ->
+                        adapter.removeAllData()
+                        adapter.loadData(list)
+                    }
+                }
+            }
+            .setNegativeButton("取消") { dialog, which ->
+                dialog.dismiss()
+            }.create().show()
     }
 
     private fun openAddPeople() {

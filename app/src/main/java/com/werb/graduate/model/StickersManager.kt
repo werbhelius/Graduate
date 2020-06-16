@@ -50,7 +50,7 @@ object StickersManager {
 
     fun getBackgrounds(block:(List<Sticker>) -> Unit) {
         AppDatabase.getInstance().asyncAction { database ->
-            val backgrounds = database.userDao().getAll().reversed()
+            val backgrounds = database.backgroundDao().getAll().reversed()
             syncAction( {
                 backgroundStickers = mutableListOf(Sticker(isAddImage = true),
                     Sticker(localImageName = "scenery1"),
@@ -76,8 +76,19 @@ object StickersManager {
     fun addBackground(uri: Uri, success: () -> Unit) {
         backgroundStickers.add(1, Sticker(localImageUri = uri))
         AppDatabase.getInstance().asyncAction { database ->
-            database.userDao().insert(Background(imageUri = uri.toString()))
+            database.backgroundDao().insert(Background(imageUri = uri.toString()))
             success()
+        }
+    }
+
+    fun deleteBackground(sticker: Sticker, success: () -> Unit) {
+        if (backgroundStickers.remove(sticker)) {
+            AppDatabase.getInstance().asyncAction { database ->
+                sticker.localImageUri?.toString()?.also {
+                    database.backgroundDao().delete(it)
+                    success()
+                }
+            }
         }
     }
 
@@ -104,6 +115,17 @@ object StickersManager {
         }
     }
 
+    fun deletePeople(sticker: Sticker, success: () -> Unit) {
+        if (peopleStickers.remove(sticker)) {
+            AppDatabase.getInstance().asyncAction { database ->
+                sticker.localImageUri?.toString()?.also {
+                    database.peopleDao().delete(it)
+                    success()
+                }
+            }
+        }
+    }
+
     fun getAvatars(block:(List<Sticker>) -> Unit) {
         AppDatabase.getInstance().asyncAction { database ->
             val avatars = database.avatarDao().getAll().reversed()
@@ -124,6 +146,17 @@ object StickersManager {
         AppDatabase.getInstance().asyncAction { database ->
             database.avatarDao().insert(Avatar(imageUri = uri.toString()))
             success()
+        }
+    }
+
+    fun deleteAvatar(sticker: Sticker, success: () -> Unit) {
+        if (avatarStickers.remove(sticker)) {
+            AppDatabase.getInstance().asyncAction { database ->
+                sticker.localImageUri?.toString()?.also {
+                    database.avatarDao().delete(it)
+                    success()
+                }
+            }
         }
     }
 

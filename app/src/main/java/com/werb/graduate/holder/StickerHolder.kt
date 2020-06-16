@@ -36,5 +36,6 @@ class StickerHolder(values: MutableMap<String, Any>, containerView: View) :
         //click
         displayImage.tag = data
         addOnClickListener(displayImage)
+        addOnLongClickListener(displayImage)
     }
 }

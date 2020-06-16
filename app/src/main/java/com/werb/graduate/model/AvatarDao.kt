@@ -17,6 +17,6 @@ interface AvatarDao {
     @Insert
     fun insert(avatar: Avatar)
 
-    @Delete
-    fun delete(avatar: Avatar)
+    @Query("DELETE FROM Avatar WHERE image_uri = :image_uri")
+    fun delete(image_uri: String)
 }

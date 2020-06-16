@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -87,6 +88,35 @@ class AvatarFragment: Fragment() {
                 }
             }
         }
+
+        override fun onItemLongClick(view: View, position: Int): Boolean {
+            val sticker = view.tag as Sticker
+            when(view.id) {
+                R.id.displayImage -> {
+                    sticker.localImageUri?.also {
+                        deleteLocalFile(sticker)
+                    }
+                }
+            }
+            return true
+        }
+    }
+
+    private fun deleteLocalFile(sticker: Sticker) {
+        AlertDialog.Builder(requireContext())
+            .setMessage("删除这张图片？")
+            .setPositiveButton("确定"
+            ) { dialog, which ->
+                StickersManager.deleteAvatar(sticker) {
+                    StickersManager.getAvatars { list ->
+                        adapter.removeAllData()
+                        adapter.loadData(list)
+                    }
+                }
+            }
+            .setNegativeButton("取消") { dialog, which ->
+                dialog.dismiss()
+            }.create().show()
     }
 
     private fun openGallery() {

@@ -17,6 +17,6 @@ interface BackgroundDao {
     @Insert
     fun insert(background: Background)
 
-    @Delete
-    fun delete(background: Background)
+    @Query("DELETE FROM background WHERE image_uri = :image_uri")
+    fun delete(image_uri: String)
 }

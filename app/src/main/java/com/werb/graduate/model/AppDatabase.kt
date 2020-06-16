@@ -11,7 +11,7 @@ import com.werb.graduate.MyApp
 @Database(entities = [Background::class, People::class, Avatar::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
 
-    abstract fun userDao(): BackgroundDao
+    abstract fun backgroundDao(): BackgroundDao
     abstract fun peopleDao(): PeopleDao
     abstract fun avatarDao(): AvatarDao
 
