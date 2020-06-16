@@ -1,14 +1,20 @@
 package com.werb.graduate.exts
 
+import android.app.Activity
 import android.content.Context
 import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.Matrix
+import android.graphics.Rect
 import android.net.Uri
+import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.provider.MediaStore
+import android.view.PixelCopy
+import android.view.View
 import androidx.exifinterface.media.ExifInterface
+import com.werb.graduate.R
 import java.io.*
 
 
@@ -80,4 +86,34 @@ fun rotateImage(img: Bitmap, degree: Int): Bitmap? {
         Bitmap.createBitmap(img, 0, 0, img.width, img.height, matrix, true)
     img.recycle()
     return rotatedImg
+}
+
+fun getBitmapFromView(view: View, activity: Activity, callback: (Bitmap) -> Unit) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        activity.window?.let { window ->
+            val bitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
+            val locationOfViewInWindow = IntArray(2)
+            view.getLocationInWindow(locationOfViewInWindow)
+            try {
+                PixelCopy.request(window,
+                    Rect(
+                        locationOfViewInWindow[0],
+                        locationOfViewInWindow[1],
+                        locationOfViewInWindow[0] + view.width,
+                        locationOfViewInWindow[1] + view.height
+                    ), bitmap, { copyResult ->
+                        if (copyResult == PixelCopy.SUCCESS) {
+                            callback(bitmap)
+                        }
+                    }, Handler()
+                )
+            } catch (e: IllegalArgumentException) {
+                e.printStackTrace()
+            }
+        }
+    } else {
+        view.isDrawingCacheEnabled = true
+        val bmp = view.drawingCache
+        callback(bmp)
+    }
 }

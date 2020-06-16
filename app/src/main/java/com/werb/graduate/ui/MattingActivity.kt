@@ -9,10 +9,12 @@ import android.os.Looper
 import android.widget.SeekBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.graphics.drawable.toBitmap
 import androidx.core.net.toUri
 import com.werb.graduate.R
 import com.werb.graduate.databinding.ActivityMattingBinding
 import com.werb.graduate.events.AddNewAvatarEvent
+import com.werb.graduate.exts.getBitmapFromView
 import com.werb.graduate.exts.saveBitmap
 import com.werb.graduate.exts.saveBitmapToPng
 import com.werb.graduate.exts.syncAction
@@ -156,11 +158,12 @@ class MattingActivity: AppCompatActivity() {
     @SuppressLint("MissingPermission")
     private fun mattingCurrent(block:(Bitmap?) -> Unit) {
         val path = cacheDir.absolutePath + "/cache_${UUID.randomUUID()}.png"
-        binding.imageBg.isDrawingCacheEnabled = true
-        val bmp = binding.imageBg.drawingCache
-        saveBitmapToPng(bmp, path) {
+        binding.imageBg.buildDrawingCache()
+        val bitmap = binding.imageBg.drawingCache
+        saveBitmapToPng(bitmap, path) {
             matting(path, block)
         }
+
     }
 
     @SuppressLint("MissingPermission")
@@ -170,9 +173,9 @@ class MattingActivity: AppCompatActivity() {
             File(dir).mkdirs()
         }
         val path = filesDir.absolutePath + "/avatars/${UUID.randomUUID()}.png"
-        binding.imageBg.isDrawingCacheEnabled = true
-        val bmp = binding.imageBg.drawingCache
-        saveBitmapToPng(bmp, path) {
+        binding.imageBg.buildDrawingCache()
+        val bitmap = binding.imageBg.drawingCache
+        saveBitmapToPng(bitmap, path) {
             StickersManager.addAvatar(File(path).toUri()){
                 EventBus.getDefault().post(AddNewAvatarEvent())
                 finish()
