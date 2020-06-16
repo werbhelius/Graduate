@@ -3,6 +3,7 @@ package com.werb.graduate.ui
 import android.annotation.SuppressLint
 import android.content.ContentResolver
 import android.content.ContentValues
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -15,6 +16,7 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.transition.TransitionManager
@@ -109,6 +111,17 @@ class MainActivity : AppCompatActivity() {
         }
         binding.saveBtn.setOnClickListener {
             saveToFinish()
+        }
+        binding.deleteBtn.setOnClickListener {
+            AlertDialog.Builder(this)
+                .setMessage("清空当前操作？")
+                .setPositiveButton("确定"
+                ) { dialog, which ->
+                    mPhotoEditor.clearAllViews()
+                }
+                .setNegativeButton("取消") { dialog, which ->
+                    dialog.dismiss()
+                }.create().show()
         }
 
         mPhotoEditor = PhotoEditor.Builder(this, binding.photoEditorView).build()

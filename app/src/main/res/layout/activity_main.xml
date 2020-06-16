@@ -40,6 +40,17 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_save_alt_24px" />
 
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/deleteBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:background="@android:color/transparent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_delete_forever_24px" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ja.burhanrashid52.photoeditor.PhotoEditorView
