@@ -67,6 +67,12 @@ class AddPeopleActivity: AppCompatActivity() {
         binding.settingBtn.setOnClickListener {
             openAddPeople()
         }
+        binding.restoreBtn.setOnClickListener {
+            if (uiChange) {
+                mPhotoEditor.clearAllViews()
+                setDefaultView()
+            }
+        }
         binding.returnBtn.setOnClickListener {
             if (uiChange) {
                 AlertDialog.Builder(this)
