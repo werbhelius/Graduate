@@ -1,5 +1,6 @@
 package com.werb.graduate.ui
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.ContentResolver
 import android.content.ContentValues
@@ -22,6 +23,7 @@ import androidx.constraintlayout.widget.ConstraintSet
 import androidx.transition.TransitionManager
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayoutMediator
+import com.werb.azure.Azure
 import com.werb.graduate.EditManager
 import com.werb.graduate.ImageRatio
 import com.werb.graduate.R
@@ -111,7 +113,15 @@ class MainActivity : AppCompatActivity() {
             editManager.imageRatio = ImageRatio.SIXTEEN_NINE
         }
         binding.saveBtn.setOnClickListener {
-            saveToFinish()
+            Azure(this)
+                .permissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .subscribe {
+                    if (it) {
+                        saveToFinish()
+                    } else {
+                        Toast.makeText(this, "请在系统设置开启存储权限后重试", Toast.LENGTH_SHORT).show()
+                    }
+                }.request()
         }
         binding.deleteBtn.setOnClickListener {
             AlertDialog.Builder(this)
@@ -246,23 +256,12 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("MissingPermission")
     private fun saveToFinish() {
-        val settings = SaveSettings.Builder()
-            .setClearViewsEnabled(false)
-            .setCompressFormat(Bitmap.CompressFormat.JPEG)
-            .build()
-        mPhotoEditor.saveAsBitmap(settings, object : OnSaveBitmap{
-            override fun onFailure(e: java.lang.Exception?) {
-                Toast.makeText(this@MainActivity, "保存失败，请重试。", Toast.LENGTH_SHORT).show()
-            }
-
-            override fun onBitmapReady(saveBitmap: Bitmap?) {
-                saveBitmap?.also {
-                    saveImage(it, UUID.randomUUID().toString() + ".jpg")
-                    Toast.makeText(this@MainActivity, "保存成功，请在系统相册查看。", Toast.LENGTH_SHORT).show()
-                }
-            }
-
-        })
+        binding.photoEditorView.buildDrawingCache()
+        val bitmap = binding.photoEditorView.drawingCache
+        bitmap?.also {
+            saveImage(it, UUID.randomUUID().toString() + ".jpg")
+            Toast.makeText(this@MainActivity, "保存成功，请在系统相册查看。", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun saveImage(bitmap: Bitmap, name: String) {
