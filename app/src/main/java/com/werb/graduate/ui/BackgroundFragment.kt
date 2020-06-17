@@ -1,5 +1,6 @@
 package com.werb.graduate.ui
 
+import android.Manifest
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.graphics.BitmapFactory
@@ -7,11 +8,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.werb.azure.Azure
 import com.werb.graduate.R
 import com.werb.graduate.databinding.FragmentBackgroundBinding
 import com.werb.graduate.events.AddBackgroundEvent
@@ -74,7 +77,15 @@ class BackgroundFragment: Fragment() {
             when(view.id) {
                 R.id.displayImage -> {
                     if (sticker.isAddImage) {
-                        openGallery()
+                        Azure(requireActivity())
+                            .permissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                            .subscribe {
+                                if (it) {
+                                    openGallery()
+                                } else {
+                                    Toast.makeText(requireContext(), "请在系统设置开启存储权限后重试", Toast.LENGTH_SHORT).show()
+                                }
+                            }.request()
                     } else {
                         EventBus.getDefault().post(AddBackgroundEvent(sticker))
                     }
