@@ -9,11 +9,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.werb.graduate.R
 import com.werb.graduate.databinding.FragmentPropBinding
+import com.werb.graduate.events.AddBackgroundEvent
+import com.werb.graduate.events.AddPropEvent
 import com.werb.graduate.holder.StickerHolder
 import com.werb.graduate.model.Sticker
 import com.werb.graduate.model.StickersManager
 import com.werb.library.MoreAdapter
 import com.werb.library.action.MoreClickListener
+import org.greenrobot.eventbus.EventBus
 
 /**
  * Created by wanbo on 2020/6/9.
@@ -55,7 +58,7 @@ class PropFragment: Fragment() {
             val sticker = view.tag as Sticker
             when(view.id) {
                 R.id.displayImage -> {
-
+                    EventBus.getDefault().post(AddPropEvent(sticker))
                 }
             }
         }

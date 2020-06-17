@@ -29,6 +29,7 @@ import com.werb.graduate.adapter.MainPagerAdapter
 import com.werb.graduate.databinding.ActivityMainBinding
 import com.werb.graduate.events.AddBackgroundEvent
 import com.werb.graduate.events.AddPeopleToBgEvent
+import com.werb.graduate.events.AddPropEvent
 import com.werb.graduate.exts.getImage
 import com.werb.graduate.exts.syncAction
 import com.werb.graduate.model.StickersManager
@@ -321,6 +322,19 @@ class MainActivity : AppCompatActivity() {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onAddPeopleToBg(event: AddPeopleToBgEvent) {
+        event.sticker.localImageUri?.also { uri ->
+            contentResolver.openInputStream(uri)?.also { stream ->
+                val bmp = BitmapFactory.decodeStream(stream)
+                mPhotoEditor.addImage(bmp)
+            }
+        } ?: run {
+            val bmp = BitmapFactory.decodeResource(resources, getImage(event.sticker.localImageName))
+            mPhotoEditor.addImage(bmp)
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onAddPropToBg(event: AddPropEvent) {
         event.sticker.localImageUri?.also { uri ->
             contentResolver.openInputStream(uri)?.also { stream ->
                 val bmp = BitmapFactory.decodeStream(stream)
