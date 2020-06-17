@@ -219,6 +219,7 @@ class AddPeopleActivity: AppCompatActivity() {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onAddAvatarEvent(event: AddAvatarToPeopleEvent) {
+        avatarImageView?.scaleX = 1f
         event.sticker.localImageUri?.also {
             contentResolver.openInputStream(it)?.also { stream ->
                 val bmp = BitmapFactory.decodeStream(stream)
@@ -234,6 +235,7 @@ class AddPeopleActivity: AppCompatActivity() {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onAddClothEvent(event: AddClothToPeopleEvent) {
+        clothImageView?.scaleX = 1f
         val bmp = BitmapFactory.decodeResource(resources, getImage(event.sticker.localImageName))
         clothImageView?.setImageBitmap(bmp)
         uiChange = true
@@ -241,6 +243,7 @@ class AddPeopleActivity: AppCompatActivity() {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onAddDecorateEvent(event: AddDecorateToPeopleEvent) {
+        hatImageView?.scaleX = 1f
         val bmp = BitmapFactory.decodeResource(resources, getImage(event.sticker.localImageName))
         hatImageView?.setImageBitmap(bmp)
         uiChange = true

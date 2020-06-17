@@ -82,6 +82,7 @@ public class PhotoEditor implements BrushViewChangeListener {
         final FrameLayout frmBorder = imageRootView.findViewById(R.id.frmBorder);
         final ImageView imgClose = imageRootView.findViewById(R.id.imgPhotoEditorClose);
         final ImageView imgflip = imageRootView.findViewById(R.id.imgPhotoEditorFlip);
+        imageView.setScaleX(1f);
 
         imageView.setImageBitmap(desiredImage);
 
@@ -423,6 +424,20 @@ public class PhotoEditor implements BrushViewChangeListener {
                     @Override
                     public void onClick(View v) {
                         viewUndo(finalRootView, viewType);
+                    }
+                });
+            }
+            final ImageView imgflip = rootView.findViewById(R.id.imgPhotoEditorFlip);
+            final ImageView source = rootView.findViewById(R.id.imgPhotoEditorImage);
+            if (imgflip != null) {
+                imgflip.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(source.getScaleX() == 1f) {
+                            source.setScaleX(-1);
+                        } else  {
+                            source.setScaleX(1);
+                        }
                     }
                 });
             }
