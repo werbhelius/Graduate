@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
 import com.google.android.material.tabs.TabLayoutMediator
@@ -39,6 +40,7 @@ class AddPeopleActivity: AppCompatActivity() {
     private var hatImageView: ImageView? = null
     private var clothImageView: ImageView? = null
     private var avatarImageView: ImageView? = null
+    private var uiChange = false
 
     override fun onStart() {
         super.onStart()
@@ -66,7 +68,19 @@ class AddPeopleActivity: AppCompatActivity() {
             openAddPeople()
         }
         binding.returnBtn.setOnClickListener {
-            finish()
+            if (uiChange) {
+                AlertDialog.Builder(this)
+                    .setMessage("放弃当前编辑操作？")
+                    .setPositiveButton("确定"
+                    ) { dialog, which ->
+                        finish()
+                    }
+                    .setNegativeButton("取消") { dialog, which ->
+                        dialog.dismiss()
+                    }.create().show()
+            } else {
+                finish()
+            }
         }
         binding.saveBtn.setOnClickListener {
             Azure(this)
@@ -80,6 +94,22 @@ class AddPeopleActivity: AppCompatActivity() {
                 }.request()
         }
         mPhotoEditor = PhotoEditor.Builder(this, binding.photoEditorView).build()
+    }
+
+    override fun onBackPressed() {
+        if (uiChange) {
+            AlertDialog.Builder(this)
+                .setMessage("放弃当前编辑操作？")
+                .setPositiveButton("确定"
+                ) { dialog, which ->
+                    finish()
+                }
+                .setNegativeButton("取消") { dialog, which ->
+                    dialog.dismiss()
+                }.create().show()
+        } else {
+            finish()
+        }
     }
 
     private fun setupTab() {
@@ -179,10 +209,12 @@ class AddPeopleActivity: AppCompatActivity() {
             contentResolver.openInputStream(it)?.also { stream ->
                 val bmp = BitmapFactory.decodeStream(stream)
                 avatarImageView?.setImageBitmap(bmp)
+                uiChange = true
             }
         } ?: run {
             val bmp = BitmapFactory.decodeResource(resources, getImage(event.sticker.localImageName))
             avatarImageView?.setImageBitmap(bmp)
+            uiChange = true
         }
     }
 
@@ -190,12 +222,14 @@ class AddPeopleActivity: AppCompatActivity() {
     fun onAddClothEvent(event: AddClothToPeopleEvent) {
         val bmp = BitmapFactory.decodeResource(resources, getImage(event.sticker.localImageName))
         clothImageView?.setImageBitmap(bmp)
+        uiChange = true
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onAddDecorateEvent(event: AddDecorateToPeopleEvent) {
         val bmp = BitmapFactory.decodeResource(resources, getImage(event.sticker.localImageName))
         hatImageView?.setImageBitmap(bmp)
+        uiChange = true
     }
 
 }
