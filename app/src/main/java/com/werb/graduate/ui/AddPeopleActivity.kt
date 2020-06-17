@@ -190,10 +190,11 @@ class AddPeopleActivity: AppCompatActivity() {
             File(dir).mkdirs()
         }
         val path = filesDir.absolutePath + "/peoples/${UUID.randomUUID()}.png"
-        binding.photoEditorView.buildDrawingCache()
+        binding.photoEditorView.isDrawingCacheEnabled = true
         val bitmap = binding.photoEditorView.drawingCache
         saveBitmapToPng(bitmap, path) {
             StickersManager.addPeople(File(path).toUri()){
+                binding.photoEditorView.isDrawingCacheEnabled = false
                 EventBus.getDefault().post(AddPeopleToListEvent())
                 finish()
             }

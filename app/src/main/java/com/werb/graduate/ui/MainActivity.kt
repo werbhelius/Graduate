@@ -256,11 +256,12 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("MissingPermission")
     private fun saveToFinish() {
-        binding.photoEditorView.buildDrawingCache()
+        binding.photoEditorView.isDrawingCacheEnabled = true
         val bitmap = binding.photoEditorView.drawingCache
         bitmap?.also {
             saveImage(it, UUID.randomUUID().toString() + ".jpg")
             Toast.makeText(this@MainActivity, "保存成功，请在系统相册查看。", Toast.LENGTH_SHORT).show()
+            binding.photoEditorView.isDrawingCacheEnabled = false
         }
     }
 
@@ -297,15 +298,12 @@ class MainActivity : AppCompatActivity() {
         event.sticker.localImageUri?.also { uri ->
             contentResolver.openInputStream(uri)?.also { stream ->
                 val bounds = BitmapFactory.Options()
-                bounds.inJustDecodeBounds = true
-                BitmapFactory.decodeStream(stream, null, bounds)
+                val bmp = BitmapFactory.decodeStream(stream, null, bounds)
                 val set = ConstraintSet()
                 set.clone(binding.root)
                 set.setDimensionRatio(binding.photoEditorView.id, "${bounds.outWidth}:${bounds.outHeight}")
                 set.applyTo(binding.root)
-                Glide.with(this)
-                    .load(uri)
-                    .into(binding.photoEditorView.source)
+                binding.photoEditorView.source.setImageBitmap(bmp)
             }
         } ?: run {
             val bounds = BitmapFactory.Options()
