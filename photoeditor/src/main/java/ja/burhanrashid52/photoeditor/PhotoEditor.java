@@ -81,6 +81,7 @@ public class PhotoEditor implements BrushViewChangeListener {
         final ImageView imageView = imageRootView.findViewById(R.id.imgPhotoEditorImage);
         final FrameLayout frmBorder = imageRootView.findViewById(R.id.frmBorder);
         final ImageView imgClose = imageRootView.findViewById(R.id.imgPhotoEditorClose);
+        final ImageView imgflip = imageRootView.findViewById(R.id.imgPhotoEditorFlip);
 
         imageView.setImageBitmap(desiredImage);
 
@@ -91,6 +92,7 @@ public class PhotoEditor implements BrushViewChangeListener {
                 boolean isBackgroundVisible = frmBorder.getTag() != null && (boolean) frmBorder.getTag();
                 frmBorder.setBackgroundResource(isBackgroundVisible ? 0 : R.drawable.rounded_border_tv);
                 imgClose.setVisibility(isBackgroundVisible ? View.GONE : View.VISIBLE);
+                imgflip.setVisibility(isBackgroundVisible ? View.GONE : View.VISIBLE);
                 frmBorder.setTag(!isBackgroundVisible);
             }
 
@@ -106,11 +108,21 @@ public class PhotoEditor implements BrushViewChangeListener {
 
     }
 
+    public void removeAllSelected() {
+        for (int i=0; i < addedViews.size(); i++) {
+            View root = addedViews.get(i);
+            root.findViewById(R.id.frmBorder).setBackgroundResource(0);
+            root.findViewById(R.id.imgPhotoEditorClose).setVisibility(View.GONE);
+            root.findViewById(R.id.imgPhotoEditorFlip).setVisibility(View.GONE);
+        }
+    }
+
     public View addImageWithReturn(Bitmap desiredImage) {
         final View imageRootView = getLayout(ViewType.IMAGE);
         final ImageView imageView = imageRootView.findViewById(R.id.imgPhotoEditorImage);
         final FrameLayout frmBorder = imageRootView.findViewById(R.id.frmBorder);
         final ImageView imgClose = imageRootView.findViewById(R.id.imgPhotoEditorClose);
+        final ImageView imgflip = imageRootView.findViewById(R.id.imgPhotoEditorFlip);
         imgClose.setVisibility(View.GONE);
 
         imageView.setImageBitmap(desiredImage);
@@ -124,12 +136,14 @@ public class PhotoEditor implements BrushViewChangeListener {
                     if (root == imageRootView) {
                         if (root.findViewById(R.id.frmBorder).getBackground() != null) {
                             root.findViewById(R.id.frmBorder).setBackgroundResource(0);
+                            root.findViewById(R.id.imgPhotoEditorFlip).setVisibility(View.GONE);
                         } else  {
                             root.findViewById(R.id.frmBorder).setBackgroundResource(R.drawable.rounded_border_tv);
+                            root.findViewById(R.id.imgPhotoEditorFlip).setVisibility(View.VISIBLE);
                         }
                     } else  {
-                        boolean isBackgroundVisible = false;
                         root.findViewById(R.id.frmBorder).setBackgroundResource(0);
+                        root.findViewById(R.id.imgPhotoEditorFlip).setVisibility(View.GONE);
                     }
                 }
             }

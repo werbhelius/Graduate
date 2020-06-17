@@ -117,6 +117,7 @@ class MainActivity : AppCompatActivity() {
                 .permissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 .subscribe {
                     if (it) {
+                        mPhotoEditor.removeAllSelected()
                         saveToFinish()
                     } else {
                         Toast.makeText(this, "请在系统设置开启存储权限后重试", Toast.LENGTH_SHORT).show()
