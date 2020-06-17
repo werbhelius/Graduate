@@ -54,13 +54,13 @@ class AddPeopleMode: Serializable {
                 Xueke.GONG
             }
             3 -> {
-                Xueke.GONG
-            }
-            4 -> {
                 Xueke.JUN
             }
-            5 -> {
+            4 -> {
                 Xueke.YI
+            }
+            5 -> {
+                Xueke.NONG
             }
             else -> {
                 Xueke.WEN
