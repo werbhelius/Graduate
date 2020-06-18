@@ -7,7 +7,7 @@ import java.io.Serializable
  */
 class AddPeopleMode: Serializable {
 
-    var xingbie = Xingbie.NAN
+    var xingbie = Xingbie.NV
     var xuewei = Xuewei.XUE_SHI
     var xueke = Xueke.WEN
 
