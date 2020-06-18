@@ -17,7 +17,8 @@ object ClothManager {
         Sticker(localImageName = "boshi_wen_all3"),
         Sticker(localImageName = "boshi_wen_all4"),
         Sticker(localImageName = "boshi_wen_all5"),
-        Sticker(localImageName = "boshi_wen_all6")
+        Sticker(localImageName = "boshi_wen_all6"),
+        Sticker(localImageName = "all_nan")
     )
 
     val clothBoshiWenNv = listOf(
@@ -35,7 +36,8 @@ object ClothManager {
         Sticker(localImageName = "boshi_wen_all3"),
         Sticker(localImageName = "boshi_wen_all4"),
         Sticker(localImageName = "boshi_wen_all5"),
-        Sticker(localImageName = "boshi_wen_all6")
+        Sticker(localImageName = "boshi_wen_all6"),
+        Sticker(localImageName = "all_nv")
     )
 
     val clothBoshiLiNan = listOf(
@@ -49,7 +51,8 @@ object ClothManager {
         Sticker(localImageName = "boshi_li_all2"),
         Sticker(localImageName = "boshi_li_all3"),
         Sticker(localImageName = "boshi_li_all4"),
-        Sticker(localImageName = "boshi_li_all5")
+        Sticker(localImageName = "boshi_li_all5"),
+        Sticker(localImageName = "all_nan")
     )
 
     val clothBoshiLiNv = listOf(
@@ -67,7 +70,8 @@ object ClothManager {
         Sticker(localImageName = "boshi_li_all2"),
         Sticker(localImageName = "boshi_li_all3"),
         Sticker(localImageName = "boshi_li_all4"),
-        Sticker(localImageName = "boshi_li_all5")
+        Sticker(localImageName = "boshi_li_all5"),
+        Sticker(localImageName = "all_nv")
     )
 
     val clothBoshiGongNan = listOf(
@@ -81,7 +85,8 @@ object ClothManager {
         Sticker(localImageName = "boshi_gong_all2"),
         Sticker(localImageName = "boshi_gong_all3"),
         Sticker(localImageName = "boshi_gong_all4"),
-        Sticker(localImageName = "boshi_gong_all5")
+        Sticker(localImageName = "boshi_gong_all5"),
+        Sticker(localImageName = "all_nan")
     )
 
     val clothBoshiGongNv = listOf(
@@ -99,7 +104,8 @@ object ClothManager {
         Sticker(localImageName = "boshi_gong_all2"),
         Sticker(localImageName = "boshi_gong_all3"),
         Sticker(localImageName = "boshi_gong_all4"),
-        Sticker(localImageName = "boshi_gong_all5")
+        Sticker(localImageName = "boshi_gong_all5"),
+        Sticker(localImageName = "all_nv")
     )
 
     val clothBoshiJunNan = listOf(
@@ -113,7 +119,8 @@ object ClothManager {
         Sticker(localImageName = "boshi_jun_all2"),
         Sticker(localImageName = "boshi_jun_all3"),
         Sticker(localImageName = "boshi_jun_all4"),
-        Sticker(localImageName = "boshi_jun_all5")
+        Sticker(localImageName = "boshi_jun_all5"),
+        Sticker(localImageName = "all_nan")
     )
 
     val clothBoshiJunNv = listOf(
@@ -131,7 +138,8 @@ object ClothManager {
         Sticker(localImageName = "boshi_jun_all2"),
         Sticker(localImageName = "boshi_jun_all3"),
         Sticker(localImageName = "boshi_jun_all4"),
-        Sticker(localImageName = "boshi_jun_all5")
+        Sticker(localImageName = "boshi_jun_all5"),
+        Sticker(localImageName = "all_nv")
     )
 
     val clothBoshiYiNan = listOf(
@@ -145,7 +153,8 @@ object ClothManager {
         Sticker(localImageName = "boshi_yi_all2"),
         Sticker(localImageName = "boshi_yi_all3"),
         Sticker(localImageName = "boshi_yi_all4"),
-        Sticker(localImageName = "boshi_yi_all5")
+        Sticker(localImageName = "boshi_yi_all5"),
+        Sticker(localImageName = "all_nan")
     )
 
     val clothBoshiYiNv = listOf(
@@ -163,7 +172,8 @@ object ClothManager {
         Sticker(localImageName = "boshi_yi_all2"),
         Sticker(localImageName = "boshi_yi_all3"),
         Sticker(localImageName = "boshi_yi_all4"),
-        Sticker(localImageName = "boshi_yi_all5")
+        Sticker(localImageName = "boshi_yi_all5"),
+        Sticker(localImageName = "all_nv")
     )
 
     val clothBoshiNongNan = listOf(
@@ -177,7 +187,8 @@ object ClothManager {
         Sticker(localImageName = "boshi_nong_all2"),
         Sticker(localImageName = "boshi_nong_all3"),
         Sticker(localImageName = "boshi_nong_all4"),
-        Sticker(localImageName = "boshi_nong_all5")
+        Sticker(localImageName = "boshi_nong_all5"),
+        Sticker(localImageName = "all_nan")
     )
 
     val clothBoshiNongNv = listOf(
@@ -195,7 +206,8 @@ object ClothManager {
         Sticker(localImageName = "boshi_nong_all2"),
         Sticker(localImageName = "boshi_nong_all3"),
         Sticker(localImageName = "boshi_nong_all4"),
-        Sticker(localImageName = "boshi_nong_all5")
+        Sticker(localImageName = "boshi_nong_all5"),
+        Sticker(localImageName = "all_nv")
     )
 
     val clothXueshiWenNan = listOf(
@@ -209,7 +221,8 @@ object ClothManager {
         Sticker(localImageName = "xueshi_wen_all2"),
         Sticker(localImageName = "xueshi_wen_all3"),
         Sticker(localImageName = "xueshi_wen_all4"),
-        Sticker(localImageName = "xueshi_wen_all5")
+        Sticker(localImageName = "xueshi_wen_all5"),
+        Sticker(localImageName = "all_nan")
     )
 
     val clothXueshiWenNv = listOf(
@@ -227,7 +240,8 @@ object ClothManager {
         Sticker(localImageName = "xueshi_wen_all2"),
         Sticker(localImageName = "xueshi_wen_all3"),
         Sticker(localImageName = "xueshi_wen_all4"),
-        Sticker(localImageName = "xueshi_wen_all5")
+        Sticker(localImageName = "xueshi_wen_all5"),
+        Sticker(localImageName = "all_nv")
     )
 
     val clothXueshiLiNan = listOf(
@@ -241,7 +255,8 @@ object ClothManager {
         Sticker(localImageName = "xueshi_li_all2"),
         Sticker(localImageName = "xueshi_li_all3"),
         Sticker(localImageName = "xueshi_li_all4"),
-        Sticker(localImageName = "xueshi_li_all5")
+        Sticker(localImageName = "xueshi_li_all5"),
+        Sticker(localImageName = "all_nan")
     )
 
     val clothXueshiLiNv = listOf(
@@ -259,7 +274,8 @@ object ClothManager {
         Sticker(localImageName = "xueshi_li_all2"),
         Sticker(localImageName = "xueshi_li_all3"),
         Sticker(localImageName = "xueshi_li_all4"),
-        Sticker(localImageName = "xueshi_li_all5")
+        Sticker(localImageName = "xueshi_li_all5"),
+        Sticker(localImageName = "all_nv")
     )
 
     val clothXueshiGongNan = listOf(
@@ -273,7 +289,8 @@ object ClothManager {
         Sticker(localImageName = "xueshi_gong_all2"),
         Sticker(localImageName = "xueshi_gong_all3"),
         Sticker(localImageName = "xueshi_gong_all4"),
-        Sticker(localImageName = "xueshi_gong_all5")
+        Sticker(localImageName = "xueshi_gong_all5"),
+        Sticker(localImageName = "all_nan")
     )
 
     val clothXueshiGongNv = listOf(
@@ -291,7 +308,8 @@ object ClothManager {
         Sticker(localImageName = "xueshi_gong_all2"),
         Sticker(localImageName = "xueshi_gong_all3"),
         Sticker(localImageName = "xueshi_gong_all4"),
-        Sticker(localImageName = "xueshi_gong_all5")
+        Sticker(localImageName = "xueshi_gong_all5"),
+        Sticker(localImageName = "all_nv")
     )
 
     val clothXueshiJunNan = listOf(
@@ -305,7 +323,8 @@ object ClothManager {
         Sticker(localImageName = "xueshi_jun_all2"),
         Sticker(localImageName = "xueshi_jun_all3"),
         Sticker(localImageName = "xueshi_jun_all4"),
-        Sticker(localImageName = "xueshi_jun_all5")
+        Sticker(localImageName = "xueshi_jun_all5"),
+        Sticker(localImageName = "all_nan")
     )
 
     val clothXueshiJunNv = listOf(
@@ -323,7 +342,8 @@ object ClothManager {
         Sticker(localImageName = "xueshi_jun_all2"),
         Sticker(localImageName = "xueshi_jun_all3"),
         Sticker(localImageName = "xueshi_jun_all4"),
-        Sticker(localImageName = "xueshi_jun_all5")
+        Sticker(localImageName = "xueshi_jun_all5"),
+        Sticker(localImageName = "all_nv")
     )
 
     val clothXueshiYiNan = listOf(
@@ -337,7 +357,8 @@ object ClothManager {
         Sticker(localImageName = "xueshi_yi_all2"),
         Sticker(localImageName = "xueshi_yi_all3"),
         Sticker(localImageName = "xueshi_yi_all4"),
-        Sticker(localImageName = "xueshi_yi_all5")
+        Sticker(localImageName = "xueshi_yi_all5"),
+        Sticker(localImageName = "all_nan")
     )
 
     val clothXueshiYiNv = listOf(
@@ -355,7 +376,8 @@ object ClothManager {
         Sticker(localImageName = "xueshi_yi_all2"),
         Sticker(localImageName = "xueshi_yi_all3"),
         Sticker(localImageName = "xueshi_yi_all4"),
-        Sticker(localImageName = "xueshi_yi_all5")
+        Sticker(localImageName = "xueshi_yi_all5"),
+        Sticker(localImageName = "all_nv")
     )
 
     val clothXueshiNongNan = listOf(
@@ -369,7 +391,8 @@ object ClothManager {
         Sticker(localImageName = "xueshi_nong_all2"),
         Sticker(localImageName = "xueshi_nong_all3"),
         Sticker(localImageName = "xueshi_nong_all4"),
-        Sticker(localImageName = "xueshi_nong_all5")
+        Sticker(localImageName = "xueshi_nong_all5"),
+        Sticker(localImageName = "all_nan")
     )
 
     val clothXueshiNongNv = listOf(
@@ -387,7 +410,8 @@ object ClothManager {
         Sticker(localImageName = "xueshi_nong_all2"),
         Sticker(localImageName = "xueshi_nong_all3"),
         Sticker(localImageName = "xueshi_nong_all4"),
-        Sticker(localImageName = "xueshi_nong_all5")
+        Sticker(localImageName = "xueshi_nong_all5"),
+        Sticker(localImageName = "all_nv")
     )
 
     val clothShuoshiWenNan = listOf(
@@ -401,7 +425,8 @@ object ClothManager {
         Sticker(localImageName = "shuoshi_wen_all2"),
         Sticker(localImageName = "shuoshi_wen_all3"),
         Sticker(localImageName = "shuoshi_wen_all4"),
-        Sticker(localImageName = "shuoshi_wen_all5")
+        Sticker(localImageName = "shuoshi_wen_all5"),
+        Sticker(localImageName = "all_nan")
     )
 
     val clothShuoshiWenNv = listOf(
@@ -419,7 +444,8 @@ object ClothManager {
         Sticker(localImageName = "shuoshi_wen_all2"),
         Sticker(localImageName = "shuoshi_wen_all3"),
         Sticker(localImageName = "shuoshi_wen_all4"),
-        Sticker(localImageName = "shuoshi_wen_all5")
+        Sticker(localImageName = "shuoshi_wen_all5"),
+        Sticker(localImageName = "all_nv")
     )
 
     val clothShuoshiLiNan = listOf(
@@ -433,7 +459,8 @@ object ClothManager {
         Sticker(localImageName = "shuoshi_li_all2"),
         Sticker(localImageName = "shuoshi_li_all3"),
         Sticker(localImageName = "shuoshi_li_all4"),
-        Sticker(localImageName = "shuoshi_li_all5")
+        Sticker(localImageName = "shuoshi_li_all5"),
+        Sticker(localImageName = "all_nan")
     )
 
     val clothShuoshiLiNv = listOf(
@@ -451,7 +478,8 @@ object ClothManager {
         Sticker(localImageName = "shuoshi_li_all2"),
         Sticker(localImageName = "shuoshi_li_all3"),
         Sticker(localImageName = "shuoshi_li_all4"),
-        Sticker(localImageName = "shuoshi_li_all5")
+        Sticker(localImageName = "shuoshi_li_all5"),
+        Sticker(localImageName = "all_nv")
     )
 
     val clothShuoshiGongNan = listOf(
@@ -465,7 +493,8 @@ object ClothManager {
         Sticker(localImageName = "shuoshi_gong_all2"),
         Sticker(localImageName = "shuoshi_gong_all3"),
         Sticker(localImageName = "shuoshi_gong_all4"),
-        Sticker(localImageName = "shuoshi_gong_all5")
+        Sticker(localImageName = "shuoshi_gong_all5"),
+        Sticker(localImageName = "all_nan")
     )
 
     val clothShuoshiGongNv = listOf(
@@ -483,7 +512,8 @@ object ClothManager {
         Sticker(localImageName = "shuoshi_gong_all2"),
         Sticker(localImageName = "shuoshi_gong_all3"),
         Sticker(localImageName = "shuoshi_gong_all4"),
-        Sticker(localImageName = "shuoshi_gong_all5")
+        Sticker(localImageName = "shuoshi_gong_all5"),
+        Sticker(localImageName = "all_nv")
     )
 
     val clothShuoshiJunNan = listOf(
@@ -497,7 +527,8 @@ object ClothManager {
         Sticker(localImageName = "shuoshi_jun_all2"),
         Sticker(localImageName = "shuoshi_jun_all3"),
         Sticker(localImageName = "shuoshi_jun_all4"),
-        Sticker(localImageName = "shuoshi_jun_all5")
+        Sticker(localImageName = "shuoshi_jun_all5"),
+        Sticker(localImageName = "all_nan")
     )
 
     val clothShuoshiJunNv = listOf(
@@ -515,7 +546,8 @@ object ClothManager {
         Sticker(localImageName = "shuoshi_jun_all2"),
         Sticker(localImageName = "shuoshi_jun_all3"),
         Sticker(localImageName = "shuoshi_jun_all4"),
-        Sticker(localImageName = "shuoshi_jun_all5")
+        Sticker(localImageName = "shuoshi_jun_all5"),
+        Sticker(localImageName = "all_nv")
     )
 
     val clothShuoshiYiNan = listOf(
@@ -529,7 +561,8 @@ object ClothManager {
         Sticker(localImageName = "shuoshi_yi_all2"),
         Sticker(localImageName = "shuoshi_yi_all3"),
         Sticker(localImageName = "shuoshi_yi_all4"),
-        Sticker(localImageName = "shuoshi_yi_all5")
+        Sticker(localImageName = "shuoshi_yi_all5"),
+        Sticker(localImageName = "all_nan")
     )
 
     val clothShuoshiYiNv = listOf(
@@ -547,7 +580,8 @@ object ClothManager {
         Sticker(localImageName = "shuoshi_yi_all2"),
         Sticker(localImageName = "shuoshi_yi_all3"),
         Sticker(localImageName = "shuoshi_yi_all4"),
-        Sticker(localImageName = "shuoshi_yi_all5")
+        Sticker(localImageName = "shuoshi_yi_all5"),
+        Sticker(localImageName = "all_nv")
     )
 
     val clothShuoshiNongNan = listOf(
@@ -561,7 +595,8 @@ object ClothManager {
         Sticker(localImageName = "shuoshi_nong_all2"),
         Sticker(localImageName = "shuoshi_nong_all3"),
         Sticker(localImageName = "shuoshi_nong_all4"),
-        Sticker(localImageName = "shuoshi_nong_all5")
+        Sticker(localImageName = "shuoshi_nong_all5"),
+        Sticker(localImageName = "all_nan")
     )
 
     val clothShuoshiNongNv = listOf(
@@ -579,7 +614,8 @@ object ClothManager {
         Sticker(localImageName = "shuoshi_nong_all2"),
         Sticker(localImageName = "shuoshi_nong_all3"),
         Sticker(localImageName = "shuoshi_nong_all4"),
-        Sticker(localImageName = "shuoshi_nong_all5")
+        Sticker(localImageName = "shuoshi_nong_all5"),
+        Sticker(localImageName = "all_nv")
     )
 
 }
