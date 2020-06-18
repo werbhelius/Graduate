@@ -19,6 +19,8 @@ import com.werb.graduate.databinding.ActivityAddPeopleBinding
 import com.werb.graduate.events.*
 import com.werb.graduate.exts.getImage
 import com.werb.graduate.exts.saveBitmapToPng
+import com.werb.graduate.exts.syncAction
+import com.werb.graduate.model.PreferencesStore
 import com.werb.graduate.model.StickersManager
 import ja.burhanrashid52.photoeditor.PhotoEditor
 import ja.burhanrashid52.photoeditor.R
@@ -58,6 +60,13 @@ class AddPeopleActivity: AppCompatActivity() {
         setupViewPager()
         setupTab()
         setDefaultView()
+
+        if (!PreferencesStore.showSetting) {
+            syncAction({
+                openAddPeople()
+                PreferencesStore.showSetting = true
+            }, 500)
+        }
     }
 
     private fun setupUI() {
