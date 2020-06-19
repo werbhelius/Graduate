@@ -131,13 +131,13 @@ class MainActivity : AppCompatActivity() {
 
         mPhotoEditor = PhotoEditor.Builder(this, binding.photoEditorView).build()
 
-//        StickersManager.getBackgrounds { backgrounds ->
-//            syncAction({
-//                if (backgrounds.isNotEmpty()) {
-//                    EventBus.getDefault().post(AddBackgroundEvent(backgrounds[1]))
-//                }
-//            })
-//        }
+        StickersManager.getBackgrounds { backgrounds ->
+            syncAction({
+                if (backgrounds.isNotEmpty()) {
+                    EventBus.getDefault().post(AddBackgroundEvent(backgrounds[1]))
+                }
+            })
+        }
 
         StickersManager.getPeoples {
             syncAction({
