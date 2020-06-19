@@ -22,6 +22,7 @@ import com.werb.graduate.exts.saveBitmapToPng
 import com.werb.graduate.exts.syncAction
 import com.werb.graduate.model.PreferencesStore
 import com.werb.graduate.model.StickersManager
+import ja.burhanrashid52.photoeditor.OnPhotoEditorListener
 import ja.burhanrashid52.photoeditor.PhotoEditor
 import ja.burhanrashid52.photoeditor.R
 import ja.burhanrashid52.photoeditor.ViewType
@@ -116,6 +117,30 @@ class AddPeopleActivity: AppCompatActivity() {
                 }.request()
         }
         mPhotoEditor = PhotoEditor.Builder(this, binding.photoEditorView).build()
+        mPhotoEditor.setOnPhotoEditorListener(object : OnPhotoEditorListener {
+            override fun onEditTextChangeListener(rootView: View?, text: String?, colorCode: Int) {
+
+            }
+
+            override fun onStartViewChangeListener(viewType: ViewType?) {
+
+            }
+
+            override fun onRemoveViewListener(viewType: ViewType?, numberOfAddedViews: Int) {
+                if (numberOfAddedViews < 3) {
+                    hatImageView = null
+                    uiChange = true
+                }
+            }
+
+            override fun onAddViewListener(viewType: ViewType?, numberOfAddedViews: Int) {
+
+            }
+
+            override fun onStopViewChangeListener(viewType: ViewType?) {
+
+            }
+        })
     }
 
     override fun onBackPressed() {
@@ -254,6 +279,15 @@ class AddPeopleActivity: AppCompatActivity() {
     fun onAddDecorateEvent(event: AddDecorateToPeopleEvent) {
         hatImageView?.scaleX = 1f
         val bmp = BitmapFactory.decodeResource(resources, getImage(event.sticker.localImageName))
+        hatImageView?.also {
+            it.setImageBitmap(bmp)
+        } ?: run {
+            val rootView = mPhotoEditor.addImageWithReturn(bmp, true)
+            hatImageView = rootView.findViewById(R.id.imgPhotoEditorImage)
+            hatImageView?.also {
+                mPhotoEditor.addPeopleViewToParent(rootView, ViewType.IMAGE, 350, 350, -20)
+            }
+        }
         hatImageView?.setImageBitmap(bmp)
         uiChange = true
     }
