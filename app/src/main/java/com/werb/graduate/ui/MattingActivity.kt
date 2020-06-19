@@ -137,6 +137,7 @@ class MattingActivity: AppCompatActivity() {
     }
 
     private fun setBitmap(bitmap: Bitmap) {
+        binding.imageBg.isDrawingCacheEnabled = false
         bitmaps.add(bitmap)
         binding.imageBg.setImageBitmap(bitmap)
     }
@@ -185,11 +186,12 @@ class MattingActivity: AppCompatActivity() {
             File(dir).mkdirs()
         }
         val path = filesDir.absolutePath + "/avatars/${UUID.randomUUID()}.png"
-        binding.imageBg.buildDrawingCache()
+        binding.imageBg.isDrawingCacheEnabled = true
         val bitmap = binding.imageBg.drawingCache
         saveBitmapToPng(bitmap, path) {
             StickersManager.addAvatar(File(path).toUri()){
                 EventBus.getDefault().post(AddNewAvatarEvent())
+                binding.imageBg.isDrawingCacheEnabled = false
                 finish()
             }
         }
