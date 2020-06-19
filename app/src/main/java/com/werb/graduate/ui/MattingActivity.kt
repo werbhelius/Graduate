@@ -6,22 +6,18 @@ import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.View
 import android.widget.SeekBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.graphics.drawable.toBitmap
 import androidx.core.net.toUri
-import com.werb.graduate.R
 import com.werb.graduate.databinding.ActivityMattingBinding
 import com.werb.graduate.events.AddNewAvatarEvent
-import com.werb.graduate.exts.getBitmapFromView
-import com.werb.graduate.exts.saveBitmap
 import com.werb.graduate.exts.saveBitmapToPng
 import com.werb.graduate.exts.syncAction
 import com.werb.graduate.model.StickersManager
 import com.werb.graduate.network.ApiClient
 import com.werb.graduate.view.LoadingFragment
-import ja.burhanrashid52.photoeditor.PhotoEditor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -94,8 +90,22 @@ class MattingActivity: AppCompatActivity() {
         }
 
         binding.matting.setOnClickListener {
+            onMattingClick()
+        }
+    }
+
+    // 两次点击按钮之间的最小点击间隔时间(单位:ms)
+    private val MIN_CLICK_DELAY_TIME = 10000
+
+    // 最后一次点击的时间
+    private var lastClickTime: Long = 0
+
+    private fun onMattingClick() {
+        val currentTime = System.currentTimeMillis()
+        if (currentTime - lastClickTime > MIN_CLICK_DELAY_TIME) {
             loading(true)
             mattingCurrent {
+                lastClickTime = currentTime
                 syncAction({
                     it?.also {
                         setBitmap(it)
@@ -105,6 +115,8 @@ class MattingActivity: AppCompatActivity() {
                     }
                 })
             }
+        } else {
+            Toast.makeText(this, "抠图频率过快，请稍后重试。", Toast.LENGTH_SHORT).show()
         }
     }
 
