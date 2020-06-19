@@ -53,6 +53,7 @@ public class PhotoEditor implements BrushViewChangeListener {
     private boolean isTextPinchZoomable;
     private Typeface mDefaultTextTypeface;
     private Typeface mDefaultEmojiTypeface;
+    private boolean allowBringToFront = true;
 
 
     private PhotoEditor(Builder builder) {
@@ -68,6 +69,10 @@ public class PhotoEditor implements BrushViewChangeListener {
         brushDrawingView.setBrushViewChangeListener(this);
         addedViews = new ArrayList<>();
         redoViews = new ArrayList<>();
+    }
+
+    public void setAllowBringToFront(boolean allowBringToFront) {
+        this.allowBringToFront = allowBringToFront;
     }
 
     /**
@@ -381,7 +386,7 @@ public class PhotoEditor implements BrushViewChangeListener {
                 mOnPhotoEditorListener);
 
         //multiTouchListener.setOnMultiTouchListener(this);
-
+        multiTouchListener.allowBringToFront = this.allowBringToFront;
         return multiTouchListener;
     }
 

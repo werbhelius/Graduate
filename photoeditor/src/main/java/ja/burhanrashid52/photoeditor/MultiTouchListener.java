@@ -38,6 +38,7 @@ class MultiTouchListener implements OnTouchListener {
     private OnGestureControl mOnGestureControl;
     private boolean mIsTextPinchZoomable;
     private OnPhotoEditorListener mOnPhotoEditorListener;
+    public boolean allowBringToFront = true;
 
     MultiTouchListener(@Nullable View deleteView, RelativeLayout parentView,
                        ImageView photoEditImageView, boolean isTextPinchZoomable,
@@ -132,7 +133,9 @@ class MultiTouchListener implements OnTouchListener {
                 if (deleteView != null) {
                     deleteView.setVisibility(View.VISIBLE);
                 }
-//                view.bringToFront();
+                if (allowBringToFront) {
+                    view.bringToFront();
+                }
                 firePhotoEditorSDKListener(view, true);
                 break;
             case MotionEvent.ACTION_MOVE:

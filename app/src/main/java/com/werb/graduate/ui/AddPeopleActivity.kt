@@ -117,6 +117,7 @@ class AddPeopleActivity: AppCompatActivity() {
                 }.request()
         }
         mPhotoEditor = PhotoEditor.Builder(this, binding.photoEditorView).build()
+        mPhotoEditor.setAllowBringToFront(false)
         mPhotoEditor.setOnPhotoEditorListener(object : OnPhotoEditorListener {
             override fun onEditTextChangeListener(rootView: View?, text: String?, colorCode: Int) {
 
