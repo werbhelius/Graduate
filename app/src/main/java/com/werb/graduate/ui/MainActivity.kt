@@ -4,12 +4,11 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.ContentResolver
 import android.content.ContentValues
-import android.content.DialogInterface
-import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
+import android.media.MediaScannerConnection
 import android.net.Uri
 import android.os.*
 import android.provider.MediaStore
@@ -19,7 +18,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.transition.TransitionManager
-import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayoutMediator
 import com.werb.azure.Azure
 import com.werb.graduate.EditManager
@@ -30,13 +28,9 @@ import com.werb.graduate.databinding.ActivityMainBinding
 import com.werb.graduate.events.AddBackgroundEvent
 import com.werb.graduate.events.AddPeopleToBgEvent
 import com.werb.graduate.events.AddPropEvent
-import com.werb.graduate.exts.getImage
-import com.werb.graduate.exts.mediaScan
-import com.werb.graduate.exts.syncAction
+import com.werb.graduate.exts.*
 import com.werb.graduate.model.StickersManager
-import ja.burhanrashid52.photoeditor.OnSaveBitmap
 import ja.burhanrashid52.photoeditor.PhotoEditor
-import ja.burhanrashid52.photoeditor.SaveSettings
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -137,13 +131,13 @@ class MainActivity : AppCompatActivity() {
 
         mPhotoEditor = PhotoEditor.Builder(this, binding.photoEditorView).build()
 
-        StickersManager.getBackgrounds { backgrounds ->
-            syncAction({
-                if (backgrounds.isNotEmpty()) {
-                    EventBus.getDefault().post(AddBackgroundEvent(backgrounds[1]))
-                }
-            })
-        }
+//        StickersManager.getBackgrounds { backgrounds ->
+//            syncAction({
+//                if (backgrounds.isNotEmpty()) {
+//                    EventBus.getDefault().post(AddBackgroundEvent(backgrounds[1]))
+//                }
+//            })
+//        }
 
         StickersManager.getPeoples {
             syncAction({
@@ -278,22 +272,20 @@ class MainActivity : AppCompatActivity() {
                 resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
             imageUri?.also {
                 fos = resolver.openOutputStream(imageUri)
+                fos?.also {
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos)
+                }
+                fos?.flush()
+                fos?.close()
+                Handler(Looper.getMainLooper()).post {
+                    File(Environment.DIRECTORY_PICTURES + "/$name").mediaScan()
+                    complete.invoke()
+                }
             }
         } else {
-            val imagesDir: String =
-                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
-                    .toString()
-            val image = File(imagesDir, name)
-            fos = FileOutputStream(image)
-        }
-        fos?.also {
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos)
-        }
-        fos?.flush()
-        fos?.close()
-        Handler(Looper.getMainLooper()).post {
-            File(Environment.DIRECTORY_PICTURES + "/$name").mediaScan()
-            complete.invoke()
+            saveBitmapMain(bitmap, "${saveDir}/$name") {
+                complete.invoke()
+            }
         }
     }
 
