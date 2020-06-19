@@ -179,6 +179,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="0dp"
         android:layout_height="65dp"
         android:background="@color/color_FFFFFF"
@@ -190,13 +191,13 @@
             android:layout_width="65dp"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:textColor="@color/color_000000"
-            android:text="学科"/>
+            android:text="学科"
+            android:textColor="@color/color_000000" />
 
         <View
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />
 
         <FrameLayout
             android:layout_width="wrap_content"
@@ -211,17 +212,17 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:background="@color/color_E7E8EA"
-                app:selectedBackground="@drawable/selected_bg"
                 android:orientation="horizontal"
                 app:dividerWidth="1dp"
-                app:position="0">
+                app:position="0"
+                app:selectedBackground="@drawable/selected_bg">
 
                 <com.addisonelliott.segmentedbutton.SegmentedButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:padding="8dp"
                     android:layout_marginStart="3dp"
+                    android:padding="8dp"
                     app:selectedTextColor="@color/color_000000"
                     app:text="文"
                     app:textColor="@color/color_000000" />
@@ -230,8 +231,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:padding="8dp"
                     android:layout_marginStart="3dp"
+                    android:padding="8dp"
                     app:selectedTextColor="@color/color_000000"
                     app:text="理"
                     app:textColor="@color/color_000000" />
@@ -240,46 +241,60 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:padding="8dp"
                     android:layout_marginEnd="3dp"
+                    android:padding="8dp"
                     app:selectedTextColor="@color/color_000000"
                     app:text="工"
-                    app:textColor="@color/color_000000"/>
+                    app:textColor="@color/color_000000" />
 
                 <com.addisonelliott.segmentedbutton.SegmentedButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:padding="8dp"
                     android:layout_marginEnd="3dp"
+                    android:padding="8dp"
                     app:selectedTextColor="@color/color_000000"
                     app:text="军"
-                    app:textColor="@color/color_000000"/>
+                    app:textColor="@color/color_000000" />
 
                 <com.addisonelliott.segmentedbutton.SegmentedButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:padding="8dp"
                     android:layout_marginEnd="3dp"
+                    android:padding="8dp"
                     app:selectedTextColor="@color/color_000000"
                     app:text="医"
-                    app:textColor="@color/color_000000"/>
+                    app:textColor="@color/color_000000" />
 
                 <com.addisonelliott.segmentedbutton.SegmentedButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:padding="8dp"
                     android:layout_marginEnd="3dp"
+                    android:padding="8dp"
                     app:selectedTextColor="@color/color_000000"
                     app:text="农"
-                    app:textColor="@color/color_000000"/>
+                    app:textColor="@color/color_000000" />
 
             </com.addisonelliott.segmentedbutton.SegmentedButtonGroup>
 
         </FrameLayout>
 
     </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/contactUs"
+        android:layout_width="0dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="30dp"
+        android:text="联系我们"
+        android:gravity="center_vertical"
+        android:paddingStart="16dp"
+        android:textColor="@color/color_000000"
+        android:background="@color/color_FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

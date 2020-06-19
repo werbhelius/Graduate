@@ -1,8 +1,10 @@
 package com.werb.graduate.exts
 
+import android.content.Context
 import android.os.Handler
 import android.os.Looper
 import androidx.room.RoomDatabase
+import com.werb.graduate.MyApp
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
@@ -24,3 +26,15 @@ inline fun <T : RoomDatabase> T.asyncAction(crossinline block: (T) -> Unit): Job
         }
     }
 }
+
+val Context.APP_VERSION_NAME: String
+    get() {
+        return try {
+            val manager = MyApp.instance.packageManager
+            val info = manager.getPackageInfo(MyApp.instance.packageName, 0)
+            info.versionName
+        } catch (e: Exception) {
+            e.printStackTrace()
+            ""
+        }
+    }
