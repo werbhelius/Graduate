@@ -97,7 +97,7 @@ object StickersManager {
             val peoples = database.peopleDao().getAll().reversed()
             syncAction( {
                 peopleStickers = mutableListOf(Sticker(isAddImage = true),
-                    Sticker(localImageName = "people1"))
+                    Sticker(localImageName = "default_people"))
                 val _peoplesStickers = peoples.map { Sticker(localImageUri = Uri.parse(it.imageUri)) }
                 if (_peoplesStickers.isNotEmpty()) {
                     peopleStickers.addAll(1, _peoplesStickers)
@@ -131,7 +131,7 @@ object StickersManager {
             val avatars = database.avatarDao().getAll().reversed()
             syncAction( {
                 avatarStickers = mutableListOf(Sticker(isAddImage = true),
-                    Sticker(localImageName = "avatar1"))
+                    Sticker(localImageName = "default_avatar"))
                 val _avatarStickers = avatars.map { Sticker(localImageUri = Uri.parse(it.imageUri)) }
                 if (_avatarStickers.isNotEmpty()) {
                     avatarStickers.addAll(1, _avatarStickers)
