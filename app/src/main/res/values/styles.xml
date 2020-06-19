@@ -4,7 +4,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/color_FFFFFF</item>
         <item name="colorPrimaryDark">@color/color_FFFFFF</item>
-        <item name="android:windowBackground">@color/color_D7D8DA</item>
+        <item name="android:windowBackground">@color/color_F4F5F4</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
     </style>
 
