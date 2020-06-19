@@ -297,4 +297,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:text="这是送给毕业生们的一份小礼物🎁，希望大家喜欢～祝大家在未来的日子里追光逐梦，勇往直前！"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/contactUs" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
