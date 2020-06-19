@@ -118,7 +118,7 @@ public class PhotoEditor implements BrushViewChangeListener {
         }
     }
 
-    public View addImageWithReturn(Bitmap desiredImage) {
+    public View addImageWithReturn(Bitmap desiredImage, final Boolean closeShow) {
         final View imageRootView = getLayout(ViewType.IMAGE);
         final ImageView imageView = imageRootView.findViewById(R.id.imgPhotoEditorImage);
         final FrameLayout frmBorder = imageRootView.findViewById(R.id.frmBorder);
@@ -138,13 +138,20 @@ public class PhotoEditor implements BrushViewChangeListener {
                         if (root.findViewById(R.id.frmBorder).getBackground() != null) {
                             root.findViewById(R.id.frmBorder).setBackgroundResource(0);
                             root.findViewById(R.id.imgPhotoEditorFlip).setVisibility(View.GONE);
+                            imgClose.setVisibility(View.GONE);
                         } else  {
                             root.findViewById(R.id.frmBorder).setBackgroundResource(R.drawable.rounded_border_tv);
                             root.findViewById(R.id.imgPhotoEditorFlip).setVisibility(View.VISIBLE);
+                            if (closeShow) {
+                                imgClose.setVisibility(View.VISIBLE);
+                            } else {
+                                imgClose.setVisibility(View.GONE);
+                            }
                         }
                     } else  {
                         root.findViewById(R.id.frmBorder).setBackgroundResource(0);
                         root.findViewById(R.id.imgPhotoEditorFlip).setVisibility(View.GONE);
+                        imgClose.setVisibility(View.GONE);
                     }
                 }
             }

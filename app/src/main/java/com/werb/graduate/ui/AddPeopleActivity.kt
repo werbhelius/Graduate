@@ -157,7 +157,7 @@ class AddPeopleActivity: AppCompatActivity() {
         StickersManager.getCloths {
             val sticker = it.first()
             val bmp = BitmapFactory.decodeResource(resources, getImage(sticker.localImageName))
-            val rootView = mPhotoEditor.addImageWithReturn(bmp)
+            val rootView = mPhotoEditor.addImageWithReturn(bmp, false)
             clothImageView = rootView.findViewById(R.id.imgPhotoEditorImage)
             clothImageView?.also {
                 mPhotoEditor.addPeopleViewToParent(rootView, ViewType.IMAGE, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, 450)
@@ -170,7 +170,7 @@ class AddPeopleActivity: AppCompatActivity() {
             sticker.localImageUri?.let { uri ->
                 contentResolver.openInputStream(uri)?.also { stream ->
                     val bmp = BitmapFactory.decodeStream(stream)
-                    val rootView = mPhotoEditor.addImageWithReturn(bmp)
+                    val rootView = mPhotoEditor.addImageWithReturn(bmp, false)
                     avatarImageView = rootView.findViewById(R.id.imgPhotoEditorImage)
                     avatarImageView?.also {
                         mPhotoEditor.addPeopleViewToParent(rootView, ViewType.IMAGE, 500, 500, 100)
@@ -178,7 +178,7 @@ class AddPeopleActivity: AppCompatActivity() {
                 }
             } ?: let {
                 val bmp = BitmapFactory.decodeResource(resources, getImage(sticker.localImageName))
-                val rootView = mPhotoEditor.addImageWithReturn(bmp)
+                val rootView = mPhotoEditor.addImageWithReturn(bmp, false)
                 avatarImageView = rootView.findViewById(R.id.imgPhotoEditorImage)
                 avatarImageView?.also {
                     mPhotoEditor.addPeopleViewToParent(rootView, ViewType.IMAGE, 500, 500, 100)
@@ -189,7 +189,7 @@ class AddPeopleActivity: AppCompatActivity() {
             StickersManager.getHat {
                 val stickerHat = it.first()
                 val bmp = BitmapFactory.decodeResource(resources, getImage(stickerHat.localImageName))
-                val rootView = mPhotoEditor.addImageWithReturn(bmp)
+                val rootView = mPhotoEditor.addImageWithReturn(bmp, true)
                 hatImageView = rootView.findViewById(R.id.imgPhotoEditorImage)
                 hatImageView?.also {
                     mPhotoEditor.addPeopleViewToParent(rootView, ViewType.IMAGE, 350, 350, -20)
