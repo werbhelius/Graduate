@@ -1,6 +1,9 @@
 package com.werb.graduate.exts
 
 import android.content.Context
+import android.media.MediaScannerConnection
+import android.util.Log
+import com.werb.graduate.MyApp
 import java.io.*
 
 /**
@@ -33,4 +36,10 @@ fun createTemporalFileFrom(
         }
     }
     return targetFile
+}
+
+fun File.mediaScan() {
+    MediaScannerConnection.scanFile(MyApp.instance, arrayOf<String>(this.absolutePath), null) { path, uri ->
+        Log.v("MediaScanWork", "file $path was scanned seccessfully: $uri")
+    }
 }

@@ -11,9 +11,7 @@ import android.graphics.BitmapFactory
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.net.Uri
-import android.os.Build
-import android.os.Bundle
-import android.os.Environment
+import android.os.*
 import android.provider.MediaStore
 import android.widget.ImageView
 import android.widget.Toast
@@ -33,6 +31,7 @@ import com.werb.graduate.events.AddBackgroundEvent
 import com.werb.graduate.events.AddPeopleToBgEvent
 import com.werb.graduate.events.AddPropEvent
 import com.werb.graduate.exts.getImage
+import com.werb.graduate.exts.mediaScan
 import com.werb.graduate.exts.syncAction
 import com.werb.graduate.model.StickersManager
 import ja.burhanrashid52.photoeditor.OnSaveBitmap
@@ -260,13 +259,14 @@ class MainActivity : AppCompatActivity() {
         binding.photoEditorView.isDrawingCacheEnabled = true
         val bitmap = binding.photoEditorView.drawingCache
         bitmap?.also {
-            saveImage(it, UUID.randomUUID().toString() + ".jpg")
-            Toast.makeText(this@MainActivity, "保存成功，请在系统相册查看。", Toast.LENGTH_SHORT).show()
-            binding.photoEditorView.isDrawingCacheEnabled = false
+            saveImage(it, UUID.randomUUID().toString() + ".jpg") {
+                Toast.makeText(this@MainActivity, "保存成功，请在系统相册查看。", Toast.LENGTH_SHORT).show()
+                binding.photoEditorView.isDrawingCacheEnabled = false
+            }
         }
     }
 
-    private fun saveImage(bitmap: Bitmap, name: String) {
+    private fun saveImage(bitmap: Bitmap, name: String, complete: () -> Unit = {}) {
         var fos: OutputStream? = null
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             val resolver: ContentResolver = contentResolver
@@ -289,7 +289,12 @@ class MainActivity : AppCompatActivity() {
         fos?.also {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos)
         }
-
+        fos?.flush()
+        fos?.close()
+        Handler(Looper.getMainLooper()).post {
+            File(Environment.DIRECTORY_PICTURES + "/$name").mediaScan()
+            complete.invoke()
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
