@@ -63,7 +63,18 @@ object StickersManager {
                     Sticker(localImageName = "scenery8"),
                     Sticker(localImageName = "scenery9"),
                     Sticker(localImageName = "scenery10"),
-                    Sticker(localImageName = "scenery11"))
+                    Sticker(localImageName = "scenery11"),
+                    Sticker(localImageName = "scenery12"),
+                    Sticker(localImageName = "scenery13"),
+                    Sticker(localImageName = "scenery14"),
+                    Sticker(localImageName = "scenery15"),
+                    Sticker(localImageName = "scenery16"),
+                    Sticker(localImageName = "scenery17"),
+                    Sticker(localImageName = "scenery18"),
+                    Sticker(localImageName = "scenery19"),
+                    Sticker(localImageName = "scenery20"),
+                    Sticker(localImageName = "scenery21"),
+                    Sticker(localImageName = "scenery22"))
                 val _backgroundStickers = backgrounds.map { Sticker(localImageUri = Uri.parse(it.imageUri)) }
                 if (_backgroundStickers.isNotEmpty()) {
                     backgroundStickers.addAll(1, _backgroundStickers)
