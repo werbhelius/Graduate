@@ -162,8 +162,15 @@ class MattingActivity: AppCompatActivity() {
     private fun matting(path: String, block:(Bitmap?) -> Unit) {
         GlobalScope.launch(Dispatchers.Default) {
             ApiClient.mattingImage(path) { result ->
-                val bitmap = BitmapFactory.decodeStream(result)
-                block(bitmap)
+                result?.also {
+                    val bitmap = BitmapFactory.decodeStream(result)
+                    block(bitmap)
+                } ?: run {
+                    syncAction({
+                        block(null)
+                        Toast.makeText(this@MattingActivity, "抠图失败，请网络连接稍后重试。", Toast.LENGTH_SHORT).show()
+                    })
+                }
             }
         }
     }

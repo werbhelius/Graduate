@@ -7,6 +7,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
+import java.io.IOException
 import java.io.InputStream
 
 
@@ -60,8 +61,16 @@ object ApiClient {
             .addHeader("Content-Type", "multipart/form-data")
             .build()
 
-        val response: Response = client.newCall(request).execute()
-        block(response.body()?.byteStream())
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                block(null)
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                block(response.body()?.byteStream())
+            }
+        })
+
     }
 
 }
